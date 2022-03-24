@@ -1,0 +1,67 @@
+{
+    "vue": "2",
+    "editorVersion": "1",
+
+    "node": {
+        "type": "ElCard",
+        "attribute": {
+            "scopedSlots": {
+                "header": {
+                    "type": "ElButton",
+                    "attribute": {
+                        "props": {
+                            "type": "primary"
+                        },
+                        "on": {
+                            "click": "{{methods.onClickCardHeaderBtn}}"
+                        }
+                    },
+                    "children": "{{data.cardHeaderText}}"
+                }
+            }
+        },
+        "children": [
+            {
+                "type": "ElButton",
+                "attribute": {
+                    "props": {
+                        "type": "primary"
+                    },
+                    "on": {
+                        "click": "{{methods.onClickCardDefaultBtn}}"
+                    }
+                },
+                "children": "is default"
+            },
+            {
+                "type": "demo",
+                "attribute": {
+                    "props": {
+                        "title": "is title"
+                    }
+                }
+            },
+            {
+                "type": "user",
+                "attribute": {
+                    "props": {
+                        "name": "is name"
+                    }
+                }
+            }
+        ]
+    },
+
+    "data": {
+        "cardHeaderText": "is header text"
+    },
+
+    "methods": {
+        "onClickCardHeaderBtn": {
+            "func": "console.log('is header btn')"
+        },
+        "onClickCardDefaultBtn": {
+            "func": "console.log('is default btn')"
+        }
+    }
+}

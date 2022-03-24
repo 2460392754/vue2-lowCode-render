@@ -1,0 +1,4 @@
+# 忽略内容
+node_modules/
+dist/
+dll/

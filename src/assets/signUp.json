@@ -1,0 +1,56 @@
+{
+    "vue": "2",
+    "editorVersion": "1",
+
+    "node": {
+        "type": "div",
+        "attribute": {},
+        "children": [
+            {
+                "type": "div",
+                "attribute": {},
+                "children": "stepActive: {{data.stepActive}}"
+            },
+            {
+                "type": "mySteps",
+                "attribute": {
+                    "props": {
+                        "active": "{{data.stepActive}}",
+                        "list": "{{data.stepList}}"
+                    }
+                },
+                "children": []
+            },
+            {
+                "type": "myForm",
+                "attribute": {
+                    "props": {
+                        "onSubmitCallback": "{{methods.onSubmitCallback}}"
+                    }
+                },
+                "children": []
+            },
+            {
+                "type": "myWebcome",
+                "attribute": {
+                    "props": {
+                        "username": "{{data.username}}"
+                    }
+                },
+                "children": []
+            }
+        ]
+    },
+
+    "data": {
+        "stepActive": "eval(window.$ref(0))",
+        "stepList": "eval([{'title':'登录','desc':'这是登录页'}, {'title':'首页','desc':'这是首页'}])",
+        "username": "eval(window.$ref('xxx'))"
+    },
+
+    "methods": {
+        "onSubmitCallback": {
+            "func": "console.log('登录成功: ', JSON.stringify(arguments,null,4)); window.$message.success('登录成功'); {{data.stepActive}}.value++; console.log({{data.stepActive}}.value); {{data.username}}.value = arguments[0].username;"
+        }
+    }
+}

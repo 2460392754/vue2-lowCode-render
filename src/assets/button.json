@@ -1,0 +1,32 @@
+{
+    "vue": "2",
+    "editorVersion": "1",
+
+    "node": {
+        "type": "ElButton",
+        "attribute": {
+            "style": {
+                "margin": "20px"
+            },
+            "props": {
+                "type": "primary"
+            },
+            "on": {
+                "click": "{{methods.onClickCardHeaderBtn}}"
+            }
+        },
+        "children": "{{data.text}}, count1: {{data.count1}}, count2: {{data.count2}}"
+    },
+
+    "data": {
+        "text": "is Button",
+        "count1": "eval(window.$ref(0))",
+        "count2": "eval(window.$ref(0))"
+    },
+
+    "methods": {
+        "onClickCardHeaderBtn": {
+            "func": "{{data.count1}}.value++; {{data.count2}}.value += 2; console.log({{data.count1}}.value)"
+        }
+    }
+}

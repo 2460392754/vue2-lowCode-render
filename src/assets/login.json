@@ -1,0 +1,22 @@
+{
+    "vue": "2",
+    "editorVersion": "1",
+
+    "node": {
+        "type": "myForm",
+        "attribute": {
+            "props": {
+                "onSubmitCallback": "{{methods.onSubmitCallback}}"
+            }
+        },
+        "children": []
+    },
+
+    "data": {},
+
+    "methods": {
+        "onSubmitCallback": {
+            "func": "console.log('在json文件中获取myForm回调事件成功');console.log('arguments: ', JSON.stringify(arguments,null,4));"
+        }
+    }
+}
