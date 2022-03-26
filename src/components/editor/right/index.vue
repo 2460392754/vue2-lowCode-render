@@ -1,25 +1,23 @@
 <template>
     <el-aside width="400px">
         <Collapse v-if="isSelectComponent" :active="active" />
-        <Empty v-else />
+        <el-empty v-else description="未选择组件" />
     </el-aside>
 </template>
 
 <script>
 import Collapse from './collapse';
-import Empty from './empty';
 
 export default {
     inject: ['store'],
 
     components: {
-        Collapse,
-        Empty
+        Collapse
     },
 
     data() {
         return {
-            active: 0
+            active: -1
         };
     },
 

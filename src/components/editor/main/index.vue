@@ -22,5 +22,6 @@ export default {
 .el-main {
     display: flex;
     flex: 1;
+    justify-content: center;
 }
 </style>

@@ -33,7 +33,16 @@ export default {
         return {
             store: {
                 selectComponentId: null,
-                node: [{ name: 'Juan 111', id: 1 }]
+                node: [],
+                data: {
+                    // stepActive: 'eval(window.$ref(0))',
+                    // stepList:
+                    //     "eval([{'title':'登录','desc':'这是登录页'}, {'title':'首页','desc':'这是首页'}])",
+                    loginData: "eval(window.$ref({username:'11',password:'22'}))"
+                },
+                methods: {
+                    onSubmitCallback: "window.$toast.success('操作成功');"
+                }
             }
         };
     }

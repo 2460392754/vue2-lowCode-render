@@ -9,16 +9,17 @@ export default Vue.component('RegisterComponent', {
             required: true
         },
 
-        text: {
-            type: String,
-            default: 'is prop text'
+        /**
+         * 是否是 编辑器状态
+         */
+        isEditor: {
+            type: Boolean,
+            required: true
         }
     },
 
     setup(props, { root }) {
-        let jsonData = {};
-
-        window.$jsonData = jsonData;
+        const jsonData = {};
 
         /**
          * 初始化
@@ -42,6 +43,11 @@ export default Vue.component('RegisterComponent', {
         init(jsonData, props.data);
 
         return () =>
-            handleRenderEl(jsonData.node, jsonData, root.$createElement);
+            handleRenderEl(
+                jsonData.node,
+                jsonData,
+                root.$createElement,
+                props.isEditor
+            );
     }
 });

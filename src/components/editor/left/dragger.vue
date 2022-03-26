@@ -2,45 +2,25 @@
     <Draggable
         class="draggable-container"
         :list="list"
+        v-bind="dragOpts"
         :group="{ name: 'draggableContainer', pull: 'clone', put: false }"
         :draggable="'.' + canDraggableClassName"
         :sort="false"
         :clone="onCloneDraggable"
-        @end="onEndDraggable"
+        @end="onDragEnd"
     >
-        <div
-            v-for="(item, i) in list"
-            :key="i"
-            :class="canDraggableClassName"
-            @click="onAddComponent(item)"
-        >
-            {{ item.name }}
+        <div v-for="(item, i) in list" :key="i" :class="canDraggableClassName">
+            {{ item.__name__ }}
         </div>
     </Draggable>
-    <!-- <Draggable
-        class="draggable-container"
-        :list="list"
-        :group="{ name: 'draggableContainer', pull: 'clone', put: false }"
-        :clone="onCloneDraggable"
-        :draggable="'.' + canDraggableClassName"
-        :sort="false"
-        @end="onEndDraggable"
-    >
-        <div
-            v-for="(item, i) in list"
-            :key="i"
-            :class="canDraggableClassName"
-            @click="onAddComponent(item)"
-        >
-            {{ item.name }}
-        </div>
-    </Draggable> -->
 </template>
 <script>
 import Draggable from 'vuedraggable';
 import { v4 as UuidV4 } from 'uuid';
 
 export default {
+    inject: ['store'],
+
     components: {
         Draggable
     },
@@ -57,27 +37,42 @@ export default {
 
     data() {
         return {
-            canDraggableClassName: 'draggable-item'
+            canDraggableClassName: 'draggable-item',
+            dragOpts: {
+                group: 'dragGroup',
+                ghostClass: 'ghost',
+                animation: 300
+            }
         };
     },
 
     methods: {
-        onAddComponent() {
-            console.log('add');
-        },
-
+        /**
+         * 拖动组件到 main 里
+         * @param {*} opts
+         */
         onCloneDraggable(opts) {
-            const temp = { ...opts };
-            temp.id = UuidV4();
+            // 隔离引用
+            const temp = JSON.parse(JSON.stringify(opts));
+
+            // 生产随机id
+            temp.__id__ = UuidV4();
 
             return temp;
         },
 
         /**
-         * 拖拽结束
+         * 拖拽结束。当 page 容器中没有组件时，则进行首次数据填充
+         * @param {*} opts
          */
-        onEndDraggable() {
-            console.log(...arguments);
+        onDragEnd(opts) {
+            if (this.store.node.length !== 0) {
+                return;
+            }
+
+            const curNode = this.onCloneDraggable(this.list[opts.newIndex]);
+
+            this.store.node.push(curNode);
         }
     }
 };
@@ -87,6 +82,7 @@ export default {
 .draggable-container {
     text-align: center;
     display: flex;
+    flex-wrap: wrap;
 
     .draggable-item {
         border: 1px dashed #ccc;

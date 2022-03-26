@@ -65,7 +65,7 @@ export default {
 
         &.active {
             background-color: $primary-color;
-            color: #fff;
+            color: $white-color;
             transition: all 0.5s;
 
             &::after {

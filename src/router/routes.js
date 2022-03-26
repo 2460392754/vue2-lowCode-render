@@ -1,10 +1,10 @@
 export const routes = [
     {
         path: '/editor',
-        component: () => import('@/layouts/editor.vue')
+        component: () => import('@/pages/editor.vue')
     },
     {
         path: '/preview',
-        component: () => import('@/layouts/preview.vue')
+        component: () => import('@/pages/preview.vue')
     }
 ];

@@ -5,17 +5,32 @@
         animation="300"
         v-bind="dragOpts"
         :list="store.node"
-        @change="log"
     >
         <transition-group type="transition" :name="'flip-list'">
             <div
-                class="draggable-item"
                 v-for="item in store.node"
-                :key="item.id"
-                :class="store.selectComponentId === item.id ? 'active' : ''"
+                :key="item.__id__"
+                :class="[
+                    'draggable-item',
+                    store.selectComponentId === item.__id__ ? 'active' : ''
+                ]"
                 @click="onChangeComponent(item)"
+                @contextmenu.prevent="onContextmenu($event, item)"
             >
-                <RegisterComponent :data="{ node: item }" />
+                <div class="pointerEvents">
+                    <i
+                        v-if="store.selectComponentId === item.__id__"
+                        class="el-icon-rank"
+                    />
+                    <RegisterComponent
+                        :isEditor="true"
+                        :data="{
+                            node: item,
+                            data: store.data,
+                            methods: store.methods
+                        }"
+                    />
+                </div>
             </div>
         </transition-group>
     </Draggable>
@@ -36,10 +51,9 @@ export default {
     data() {
         return {
             dragOpts: {
-                animation: 200,
-                group: 'description',
-                disabled: false,
-                ghostClass: 'ghost'
+                group: 'dragGroup',
+                ghostClass: 'ghost',
+                animation: 300
             }
         };
     },
@@ -50,11 +64,37 @@ export default {
          * @param {*} item
          */
         onChangeComponent(item) {
-            this.store.selectComponentId = item.id;
+            this.store.selectComponentId = item.__id__;
         },
 
-        log(evt) {
-            // window.$message.success('添加成功');
+        /**
+         * 删除
+         * @param {*} item
+         */
+        onRemove(item) {
+            const temp = [...this.store.node].filter(
+                (findItem) => findItem.__id__ !== item.__id__
+            );
+
+            this.store.selectComponentId = null;
+            this.store.node = temp;
+        },
+
+        onContextmenu(event, item) {
+            this.$contextmenu({
+                items: [
+                    {
+                        label: '删除',
+                        icon: 'el-icon-delete',
+                        onClick: () => this.onRemove(item)
+                    }
+                ],
+                event,
+                zIndex: 3,
+                minWidth: 230
+            });
+
+            return false;
         }
     }
 };
@@ -63,21 +103,48 @@ export default {
 <style lang="scss" scoped>
 .page-group {
     background: $bg-color;
-    flex: 1;
+    // flex: 1;
+    width: 375px;
+    height: 568px;
+}
+
+.placeholder {
+    background-color: red;
+    width: 100%;
+    height: 2px;
 }
 
 .draggable-item {
     border: 1px dashed #ccc;
     cursor: all-scroll;
+    position: relative;
+
+    > .pointerEvents {
+        pointer-events: none;
+    }
 
     &.active {
         border-color: $primary-color;
         border-width: 2px;
         padding: 2px;
+        cursor: all-scroll;
     }
 
     &.sortable-ghost {
         border-color: red;
+    }
+
+    .el-icon-rank {
+        background: $primary-color;
+        padding: 4px;
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        color: $white-color;
+        border-bottom: 2px solid $white-color;
+        border-right: 2px solid $white-color;
+        font-weight: bold;
+        z-index: 999;
     }
 }
 </style>

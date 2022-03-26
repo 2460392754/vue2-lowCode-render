@@ -11,13 +11,22 @@ import { isRef, watch } from '@vue/composition-api';
  * @param data
  * @returns
  */
-export function handleRenderEl(node, jsonData, h) {
+export function handleRenderEl(node, jsonData, h, isEditor) {
     // 处理 空数据
     if (typeof jsonData.node === 'undefined') return;
 
     let renderList;
 
-    handleBindValue(node, jsonData);
+    !isEditor && handleBindValue(node, jsonData);
+
+    // 处理 `jsonData.node` 为数组结构
+    if (Array.isArray(node)) {
+        const res = node.map((cNode) =>
+            handleRenderEl(cNode, jsonData, h, isEditor)
+        );
+
+        return h('div', res);
+    }
 
     // 内容
     if (typeof node.children !== 'undefined') {
@@ -25,7 +34,7 @@ export function handleRenderEl(node, jsonData, h) {
             renderList = node.children.map((item) => {
                 if (typeof item === 'object') {
                     console.log(item);
-                    return handleRenderEl(item, jsonData, h);
+                    return handleRenderEl(item, jsonData, h, isEditor);
                 }
 
                 // 字符串 格式
@@ -45,7 +54,7 @@ export function handleRenderEl(node, jsonData, h) {
         };
 
         // handleElRefBind(tempAttr, jsonData);
-        handleBindEvent(tempAttr, jsonData);
+        !isEditor && handleBindEvent(tempAttr, jsonData);
         handleScopedSlots(tempAttr, node.attribute, jsonData, h);
         handleStyle(tempAttr);
 
@@ -171,7 +180,7 @@ function handleBindEvent(tempAttr, jsonData) {
                     return true;
                 }
 
-                let { func } = eval(
+                let func = eval(
                     handleParseJsonPathMatch(jsonData, toEventName)[0].afterPath
                 );
 
@@ -201,21 +210,21 @@ function handleBindEvent(tempAttr, jsonData) {
  * @param tempAttr
  * @param jsonData
  */
-function handleElRefBind(tempAttr, jsonData) {
-    // 跳过 解析
-    if (typeof tempAttr.ref === 'undefined') {
-        return tempAttr;
-    }
+// function handleElRefBind(tempAttr, jsonData) {
+//     // 跳过 解析
+//     if (typeof tempAttr.ref === 'undefined') {
+//         return tempAttr;
+//     }
 
-    // 数据命中，"{{data.xxxxx}}", 例如："{{data.formRef}}" => "data.formRef"
-    if (!hasJsonPathMatch(tempAttr.ref)) {
-        return tempAttr;
-    }
+//     // 数据命中，"{{data.xxxxx}}", 例如："{{data.formRef}}" => "data.formRef"
+//     if (!hasJsonPathMatch(tempAttr.ref)) {
+//         return tempAttr;
+//     }
 
-    tempAttr.ref = eval(
-        handleParseJsonPathMatch(jsonData, tempAttr.ref)[0].afterPath
-    );
-}
+//     tempAttr.ref = eval(
+//         handleParseJsonPathMatch(jsonData, tempAttr.ref)[0].afterPath
+//     );
+// }
 
 /**
  * 处理 插槽

@@ -2,17 +2,17 @@
     <el-form :model="getForm" label-width="80px">
         <template v-if="hasEditAttribute">
             <el-form-item
-                v-for="(item, k) of getForm.__attribute__.props"
+                v-for="(pItem, k) of getForm.__attribute__.props"
                 :key="k"
-                :label="item.name"
+                :label="pItem.name"
             >
-                <template v-if="item.type === 'select'">
+                <template v-if="pItem.type === 'select'">
                     <el-select
                         v-model="getForm.attribute.props[k]"
                         placeholder="请选择"
                     >
                         <el-option
-                            v-for="itemD in item.data"
+                            v-for="itemD in pItem.data"
                             :key="itemD.value"
                             :label="itemD.label"
                             :value="itemD.value"
@@ -20,8 +20,42 @@
                     </el-select>
                 </template>
 
-                <template v-if="item.type === 'switch'">
+                <template v-if="pItem.type === 'switch'">
                     <el-switch v-model="getForm.attribute.props[k]" />
+                </template>
+
+                <template v-if="pItem.type === 'number'">
+                    <el-input-number
+                        v-model="getForm.attribute.props[k]"
+                        :min="pItem.opts.min"
+                        :max="pItem.opts.max"
+                        label="描述文字"
+                        controls-position="right"
+                    />
+                </template>
+
+                <template v-if="pItem.type === 'input'">
+                    <el-input
+                        v-model="getForm.attribute.props[k]"
+                        clearable
+                        placeholder="请输入内容"
+                    />
+                </template>
+
+                <template v-if="pItem.type === 'event'">
+                    <BindDataSourceSelect
+                        type="methods"
+                        :obj="getForm.attribute.props"
+                        :objK="k"
+                    />
+                </template>
+
+                <template v-if="pItem.type === 'data'">
+                    <BindDataSourceSelect
+                        type="data"
+                        :obj="getForm.attribute.props"
+                        :objK="k"
+                    />
                 </template>
             </el-form-item>
         </template>
@@ -31,8 +65,14 @@
 </template>
 
 <script>
+import BindDataSourceSelect from './bindDataSourceSelect';
+
 export default {
     inject: ['store'],
+
+    components: {
+        BindDataSourceSelect
+    },
 
     computed: {
         /**
@@ -40,7 +80,7 @@ export default {
          */
         getForm() {
             return this.store.node.find(
-                (item) => item.id === this.store.selectComponentId
+                (item) => item.__id__ === this.store.selectComponentId
             );
         },
 

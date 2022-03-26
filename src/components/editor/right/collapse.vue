@@ -9,6 +9,9 @@
         <el-collapse-item title="组件属性" :name="2">
             <FormAttribute />
         </el-collapse-item>
+        <el-collapse-item title="事件绑定" :name="3">
+            <FormEventBind />
+        </el-collapse-item>
     </el-collapse>
 </template>
 
@@ -16,6 +19,7 @@
 import FormBasic from './formBasic';
 import FormStyle from './formStyle';
 import FormAttribute from './formAttribute';
+import FormEventBind from './formEventBind';
 
 export default {
     props: {
@@ -28,7 +32,8 @@ export default {
     components: {
         FormBasic,
         FormStyle,
-        FormAttribute
+        FormAttribute,
+        FormEventBind
     },
 
     methods: {
