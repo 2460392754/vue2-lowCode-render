@@ -9,21 +9,17 @@ pnpm install
 ### Compiles and hot-reloads for development
 
 ```
+# http://localhost:6689/editor.html
+# http://localhost:6689/h5.html
+
 pnpm run serve
 ```
 
 ### Compiles and minifies for production
 
 ```
+# http://xxxx/editor.html
+# http://xxxx/h5.html
+
 pnpm run build
 ```
-
-### Lints and fixes files
-
-```
-pnpm run lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
