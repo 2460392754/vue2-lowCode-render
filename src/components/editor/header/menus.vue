@@ -3,7 +3,6 @@
         <FileSaveDialog v-model="fileSaveDialogVisible" />
         <FileUploadDialog v-model="fileUploadDialogVisible" />
         <DataSourceDialog v-model="dataSourceDialogVisible" />
-        <!-- <responsiveDataDialog v-model="responsiveDataDialogVisible" /> -->
 
         <div
             v-for="(item, i) of list"
@@ -21,7 +20,6 @@
 import FileSaveDialog from './fileSaveDialog';
 import FileUploadDialog from './fileUploadDialog';
 import DataSourceDialog from './dataSourceDialog';
-// import responsiveDataDialog from './responsiveDataDialog';
 import { v4 as UuidV4 } from 'uuid';
 import { formatJson } from '@/utils/formatJson';
 
@@ -32,7 +30,6 @@ export default {
         FileSaveDialog,
         FileUploadDialog,
         DataSourceDialog
-        // responsiveDataDialog
     },
 
     data() {
@@ -56,6 +53,11 @@ export default {
                     label: '导出json',
                     icon: 'el-icon-download',
                     eventName: 'save'
+                },
+                {
+                    label: '清空',
+                    icon: 'el-icon-delete-solid',
+                    eventName: 'delete'
                 },
                 {
                     label: '预览',
@@ -83,7 +85,6 @@ export default {
 
                 case 'dataSource':
                     this.dataSourceDialogVisible = true;
-                    // this.responsiveDataDialogVisible = true;
                     break;
 
                 case 'preview':
@@ -100,6 +101,22 @@ export default {
                         formatJson(content, true, true)
                     );
                     window.open(`./h5.html?id=${id}`);
+                    break;
+
+                case 'delete':
+                    this.$confirm('确定要清空吗?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    })
+                        .then(() => {
+                            this.store.node = [];
+                            this.$message({
+                                type: 'success',
+                                message: '清空成功!'
+                            });
+                        })
+                        .catch(() => {});
                     break;
             }
         }
