@@ -6,7 +6,6 @@
 </template>
 
 <script>
-
 import Tabs from './tabs.vue';
 import ComponentList from './componentList.vue';
 
@@ -14,7 +13,6 @@ export default {
     components: {
         Tabs,
         ComponentList
-      
     },
 
     data() {

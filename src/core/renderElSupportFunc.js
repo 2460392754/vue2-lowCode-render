@@ -5,7 +5,7 @@
  */
 export function handleDataParse(data) {
     const tempData = {};
-  
+
     Object.keys(data || {}).forEach(async (k) => {
         const v = data[k];
 

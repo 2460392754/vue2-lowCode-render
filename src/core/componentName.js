@@ -1,4 +1,4 @@
-import * as Vant from 'vant'
+import * as Vant from 'vant';
 import { getCompNameAll } from '@/components/index';
 
 function vant() {

@@ -130,8 +130,8 @@ export default {
         cursor: all-scroll;
     }
 
-    &.sortable-ghost {
-        border-color: red;
+    &[draggable='true'] {
+        opacity: 0.3 !important;
     }
 
     .el-icon-rank {

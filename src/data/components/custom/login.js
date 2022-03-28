@@ -15,7 +15,7 @@ export default {
             onSubmit: {
                 name: '表单提交',
                 type: 'event'
-            },
+            }
         }
     }
 };

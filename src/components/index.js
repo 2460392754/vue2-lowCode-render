@@ -6,7 +6,7 @@ export const getCompNameAll = getCompAll.map((comp) => comp.name);
 export default {
     /**
      * 注册 ./global 文件下的所有组件
-     * @param {*} vue 
+     * @param {*} vue
      */
     install(vue) {
         getCompAll.forEach((comp) => {

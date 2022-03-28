@@ -88,7 +88,11 @@ export default {
                     return;
                 }
 
-                this.$set(this.store[this.type], this.form.key, this.form.value);
+                this.$set(
+                    this.store[this.type],
+                    this.form.key,
+                    this.form.value
+                );
                 this.onClose();
                 this.$emit('confirm');
             });
