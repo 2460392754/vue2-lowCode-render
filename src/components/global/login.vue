@@ -42,7 +42,7 @@ export default {
             type: [Function, String],
             default: () => {}
         }
-    }
+    },
 
     // data() {
     //     return {
@@ -51,6 +51,12 @@ export default {
     //             password: ''
     //         }
     //     };
-    // }
+    // },
+
+    methods: {
+        customSubmit(){
+            
+        }
+    }
 };
 </script>

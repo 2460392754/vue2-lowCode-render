@@ -11,10 +11,6 @@ export default {
     components: {
         PageContainer
     },
-
-    data() {
-        return {};
-    }
 };
 </script>
 

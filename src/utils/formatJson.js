@@ -1,5 +1,3 @@
-const removeFields = ['__id__', '__name__', '__attribute__', '__children__'];
-
 /**
  * 格式化 json 文件
  * @param {*} jsonData
@@ -30,8 +28,8 @@ export function formatJson(jsonData, isCompressed, isRemoveEditorArgs) {
  */
 function removeEditorArgs(node) {
     for (const [key, val] of Object.entries(node)) {
-        // 删除 字段
-        if (removeFields.includes(key)) {
+        // 删除 "__id__" 等字段
+        if (/^__\w+__$/.test(key)) {
             Reflect.deleteProperty(node, key);
         } else if (Array.isArray(val)) {
             val.forEach(removeEditorArgs);

@@ -1,5 +1,5 @@
 <template>
-    <el-form :model="getForm" label-width="80px">
+    <el-form v-if="getForm" :model="getForm" label-width="80px">
         <el-form-item label="组件ID">
             <el-input v-model="getForm.__id__" disabled />
         </el-form-item>

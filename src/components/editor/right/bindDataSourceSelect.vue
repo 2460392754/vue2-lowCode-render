@@ -1,5 +1,10 @@
 <template>
-    <el-select v-model="obj[objK]" placeholder="请选择数据源">
+    <el-select
+        v-model="obj[objK]"
+        placeholder="请选择数据源"
+        clearable
+        @clear="onClear"
+    >
         <el-option
             v-for="(d, key) in store[type]"
             :key="key"
@@ -36,6 +41,15 @@ export default {
         type: {
             type: String,
             required: true
+        }
+    },
+
+    methods: {
+        /**
+         * 数据被清空后，则删除对象的键名
+         */
+        onClear() {
+            Reflect.deleteProperty(this.obj, this.objK);
         }
     }
 };

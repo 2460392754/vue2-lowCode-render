@@ -10,6 +10,7 @@
                 >
                     <el-input
                         v-model="getForm.attribute.style[item.key]"
+                        placeholder="请输入内容"
                         clearable
                         @clear="onRemoveAttr($event, item.key)"
                     />
@@ -57,6 +58,26 @@ const getInputEditAttr = () => [
     {
         label: '内边距',
         key: 'padding'
+    },
+    {
+        label: '上',
+        key: 'top'
+    },
+    {
+        label: '下',
+        key: 'bottom'
+    },
+    {
+        label: '左',
+        key: 'left'
+    },
+    {
+        label: '右',
+        key: 'right'
+    },
+    {
+        label: '字体尺寸',
+        key: 'fontSize'
     }
 ];
 /**
@@ -98,6 +119,7 @@ export default {
          */
         hasEditStyle() {
             if (
+                this.store.selectComponentId === null ||
                 typeof this.getForm.__attribute__ === 'undefined' ||
                 typeof this.getForm.__attribute__.style === 'undefined' ||
                 Object.keys(this.getForm.__attribute__.style).length === 0

@@ -110,6 +110,7 @@ export default {
                         type: 'warning'
                     })
                         .then(() => {
+                            this.store.selectComponentId = null;
                             this.store.node = [];
                             this.$message({
                                 type: 'success',

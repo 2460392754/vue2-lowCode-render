@@ -10,6 +10,7 @@
                     <el-select
                         v-model="getForm.attribute.props[k]"
                         placeholder="请选择"
+                        clearable
                     >
                         <el-option
                             v-for="itemD in pItem.data"
@@ -89,6 +90,7 @@ export default {
          */
         hasEditAttribute() {
             if (
+                this.store.selectComponentId === null ||
                 typeof this.getForm.__attribute__ === 'undefined' ||
                 typeof this.getForm.__attribute__.props === 'undefined' ||
                 Object.keys(this.getForm.__attribute__.props).length === 0

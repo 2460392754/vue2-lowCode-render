@@ -66,7 +66,10 @@ export default {
          * @param {*} opts
          */
         onDragEnd(opts) {
-            if (this.store.node.length !== 0) {
+            if (
+                this.store.node.find((node) => node.__draggable__ !== false) !==
+                undefined
+            ) {
                 return;
             }
 
