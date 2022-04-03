@@ -51,8 +51,6 @@
 import Draggable from 'vuedraggable';
 import RegisterComponent from '@/core/registerComponent';
 import { proxyPositionStyle } from '@/utils/proxyPositionStyle';
-// import { RENDER_COMPONENT_CLICK_KEY } from '@/events/editor';
-import Vue from 'vue';
 
 export default {
     inject: ['store'],
@@ -93,13 +91,6 @@ export default {
     beforeDestroy() {
         eval(this.store.beforeDestroy);
     },
-
-    // created() {
-    //     // 设置 已选择的组件id
-    //     Vue.prototype.$mitt.$on(RENDER_COMPONENT_CLICK_KEY, (opts) => {
-    //         this.store.selectComponentId = opts.node.__id__;
-    //     });
-    // },
 
     methods: {
         /**

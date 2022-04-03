@@ -8,8 +8,6 @@ import {
     handleSelectActiveClassToggle
 } from './renderElSupportFunc';
 import { isRef, watch } from '@vue/composition-api';
-import Vue from 'vue';
-import { RENDER_COMPONENT_CLICK_KEY } from '@/events/editor';
 
 /**
  * 处理渲染
@@ -251,7 +249,6 @@ function handleBindEvent(tempAttr, node, jsonData, isEditor, onChange) {
                 event.stopPropagation();
                 onChange(node);
                 handleSelectActiveClassToggle(node.__id__);
-                // Vue.prototype.$mitt.$emit(RENDER_COMPONENT_CLICK_KEY, { node });
             }
         };
     }
