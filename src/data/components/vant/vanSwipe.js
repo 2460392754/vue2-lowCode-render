@@ -1,5 +1,5 @@
 export default {
-    __name__: 'van 轮播图',
+    __name__: 'vant 轮播图',
     type: 'van-swipe',
     attribute: {
         style: {

@@ -1,5 +1,5 @@
 export default {
-    __name__: 'van 输入框',
+    __name__: 'vant 输入框',
     type: 'van-field',
     attribute: {
         style: {},

@@ -1,23 +1,23 @@
 <template>
     <el-aside width="400px">
-        <Collapse v-if="isSelectComponent" :active="active" />
+        <Tabs v-if="isSelectComponent" v-model="active" />
         <el-empty v-else description="未选择组件" />
     </el-aside>
 </template>
 
 <script>
-import Collapse from './collapse';
+import Tabs from './tabs.vue';
 
 export default {
     inject: ['store'],
 
     components: {
-        Collapse
+        Tabs
     },
 
     data() {
         return {
-            active: -1
+            active: '0'
         };
     },
 

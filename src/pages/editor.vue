@@ -14,6 +14,7 @@ import Left from '@/components/editor/left';
 import Right from '@/components/editor/right';
 import Header from '@/components/editor/header';
 import Main from '@/components/editor/main';
+// import DemoEditorJson from '@/assets/demo/demo-editor.json';
 
 export default {
     components: {
@@ -43,46 +44,15 @@ export default {
                 },
                 methods: {
                     onSubmitCallback: "window.$toast.success('操作成功');"
-                }
+                },
+                created: "console.log('is created')"
             }
         };
     },
 
-    // created() {
-    //     this.store.node = [
-    //         {
-    //             __name__: '悬浮按钮',
-    //             __draggable__: false,
-    //             type: 'mySuspendedBtn',
-    //             attribute: {
-    //                 style: {
-    //                     position: 'absolute',
-    //                     color: '#fff',
-    //                     backgroundColor: '#409eff',
-    //                     padding: '10px',
-    //                     fontSize: '18px',
-    //                     right: '10px',
-    //                     bottom: '10px'
-    //                 }
-    //             },
-    //             children: [],
-    //             __attribute__: {
-    //                 style: {
-    //                     position: true,
-    //                     top: true,
-    //                     left: true,
-    //                     right: true,
-    //                     bottom: true,
-    //                     padding: true,
-    //                     fontSize: true,
-    //                     color: true,
-    //                     backgroundColor: true
-    //                 }
-    //             },
-    //             __id__: 'a21687bd-e9f6-4411-9fb2-19a5b095075d'
-    //         }
-    //     ];
-    // }
+    created() {
+        // this.store.node = DemoEditorJson.node;
+    }
 };
 </script>
 

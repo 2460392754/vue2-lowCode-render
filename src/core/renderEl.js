@@ -2,16 +2,21 @@ import ComponentName from './componentName';
 import {
     hasJsonPathMatch,
     handleParseJsonPathMatch,
-    objDeepEach
+    objDeepEach,
+    addClassName,
+    privateId,
+    handleSelectActiveClassToggle
 } from './renderElSupportFunc';
 import { isRef, watch } from '@vue/composition-api';
+import Vue from 'vue';
+import { RENDER_COMPONENT_CLICK_KEY } from '@/events/editor';
 
 /**
  * 处理渲染
  * @param data
  * @returns
  */
-export function handleRenderEl(node, jsonData, h, isEditor) {
+export function handleRenderEl(node, jsonData, h, isEditor, onChange) {
     // 处理 空数据
     if (typeof jsonData.node === 'undefined') return;
 
@@ -22,7 +27,7 @@ export function handleRenderEl(node, jsonData, h, isEditor) {
     // 处理 `jsonData.node` 为数组结构
     if (Array.isArray(node)) {
         const res = node.map((cNode) =>
-            handleRenderEl(cNode, jsonData, h, isEditor)
+            handleRenderEl(cNode, jsonData, h, isEditor, onChange)
         );
 
         return h('div', res);
@@ -33,8 +38,13 @@ export function handleRenderEl(node, jsonData, h, isEditor) {
         if (Array.isArray(node.children)) {
             renderList = node.children.map((item) => {
                 if (typeof item === 'object') {
-                    console.log(item);
-                    return handleRenderEl(item, jsonData, h, isEditor);
+                    return handleRenderEl(
+                        item,
+                        jsonData,
+                        h,
+                        isEditor,
+                        onChange
+                    );
                 }
 
                 // 字符串 格式
@@ -49,19 +59,61 @@ export function handleRenderEl(node, jsonData, h, isEditor) {
 
     // 渲染
     if (typeof node.type === 'string') {
-        const tempAttr = {
-            ...node.attribute
-        };
+        // const tempAttr = JSON.parse(JSON.stringify(node.attribute));
+        const tempAttr = { ...node.attribute };
+        // const tempAttr = node.attribute;
 
-        // handleElRefBind(tempAttr, jsonData);
-        !isEditor && handleBindEvent(tempAttr, jsonData);
+        // 初始化
+        handleAttributeInit(tempAttr, node);
+
+        // 添加组件边框提示框
+        isEditor && handleRenderBorderClass(tempAttr);
+
+        // 添加 私有id
+        isEditor && handleElementIdClass(tempAttr, node.__id__);
+
+        // 绑定事件
+        handleBindEvent(tempAttr, node, jsonData, isEditor, onChange);
+
+        // 处理插槽
         handleScopedSlots(tempAttr, node.attribute, jsonData, h);
+
+        // 处理 样式
         handleStyle(tempAttr);
+        // handleElRefBind(tempAttr, jsonData);
 
         return h(ComponentName[node.type] || node.type, tempAttr, renderList);
     }
 
     throw new TypeError('格式错误');
+}
+
+/**
+ * 处理 attribute 的数据初始化
+ * @param {*} tempAttr
+ */
+function handleAttributeInit(tempAttr, node) {
+    const objK = ['attrs', 'on', 'nativeOn'];
+    const strK = ['class'];
+
+    objK.forEach((k) => {
+        if (typeof tempAttr[k] === 'undefined') {
+            if (
+                !(
+                    k === 'nativeOn' &&
+                    typeof ComponentName[node.type] === 'undefined'
+                )
+            ) {
+                tempAttr[k] = {};
+            }
+        }
+    });
+
+    strK.forEach((k) => {
+        if (typeof tempAttr[k] === 'undefined') {
+            tempAttr[k] = '';
+        }
+    });
 }
 
 /**
@@ -157,13 +209,52 @@ function handleStyle(tempAttr) {
 }
 
 /**
+ * 处理 渲染边框的class
+ * @param {*} tempAttr
+ */
+function handleRenderBorderClass(tempAttr) {
+    // 编辑环境 添加组件表示提示框
+    if (tempAttr.__renderBorder__ !== false) {
+        addClassName(tempAttr, 'render-component');
+    }
+}
+
+/**
+ * 处理 element id class
+ * @param {*} tempAttr
+ * @param {*} id
+ */
+function handleElementIdClass(tempAttr, id) {
+    addClassName(tempAttr, privateId + id);
+}
+
+/**
  * 处理 事件绑定
  * @param tempAttr
+ * @param node
  * @param jsonData
+ * @param isEditor
+ * @param onChange
  * @returns
  */
-function handleBindEvent(tempAttr, jsonData) {
+function handleBindEvent(tempAttr, node, jsonData, isEditor, onChange) {
     const eventKeys = ['on', 'nativeOn', 'props'];
+
+    // 编辑环境
+    if (isEditor) {
+        const eventType =
+            typeof ComponentName[node.type] !== 'undefined' ? 'nativeOn' : 'on';
+
+        // 点击事件并阻止冒泡
+        tempAttr[eventType].click = function (event) {
+            if (tempAttr.__renderBorder__ !== false) {
+                event.stopPropagation();
+                onChange(node);
+                handleSelectActiveClassToggle(node.__id__);
+                // Vue.prototype.$mitt.$emit(RENDER_COMPONENT_CLICK_KEY, { node });
+            }
+        };
+    }
 
     Object.keys(tempAttr).forEach((k) => {
         if (eventKeys.includes(k)) {
@@ -204,27 +295,6 @@ function handleBindEvent(tempAttr, jsonData) {
         }
     });
 }
-
-/**
- * 处理 组件 ref 绑定
- * @param tempAttr
- * @param jsonData
- */
-// function handleElRefBind(tempAttr, jsonData) {
-//     // 跳过 解析
-//     if (typeof tempAttr.ref === 'undefined') {
-//         return tempAttr;
-//     }
-
-//     // 数据命中，"{{data.xxxxx}}", 例如："{{data.formRef}}" => "data.formRef"
-//     if (!hasJsonPathMatch(tempAttr.ref)) {
-//         return tempAttr;
-//     }
-
-//     tempAttr.ref = eval(
-//         handleParseJsonPathMatch(jsonData, tempAttr.ref)[0].afterPath
-//     );
-// }
 
 /**
  * 处理 插槽

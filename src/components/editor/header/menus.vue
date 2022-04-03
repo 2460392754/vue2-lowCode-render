@@ -3,6 +3,7 @@
         <FileSaveDialog v-model="fileSaveDialogVisible" />
         <FileUploadDialog v-model="fileUploadDialogVisible" />
         <DataSourceDialog v-model="dataSourceDialogVisible" />
+        <JsonCodePreviewDrawer v-model="jsonCodePreviewDrawerVisible" />
 
         <div
             v-for="(item, i) of list"
@@ -20,6 +21,7 @@
 import FileSaveDialog from './fileSaveDialog';
 import FileUploadDialog from './fileUploadDialog';
 import DataSourceDialog from './dataSourceDialog';
+import JsonCodePreviewDrawer from './jsonCodePreviewDrawer';
 import { v4 as UuidV4 } from 'uuid';
 import { formatJson } from '@/utils/formatJson';
 
@@ -29,7 +31,8 @@ export default {
     components: {
         FileSaveDialog,
         FileUploadDialog,
-        DataSourceDialog
+        DataSourceDialog,
+        JsonCodePreviewDrawer
     },
 
     data() {
@@ -37,12 +40,17 @@ export default {
             fileSaveDialogVisible: false,
             fileUploadDialogVisible: false,
             dataSourceDialogVisible: false,
-            // responsiveDataDialogVisible: false,
+            jsonCodePreviewDrawerVisible: false,
             list: [
                 {
                     label: '数据源',
                     icon: 'el-icon-s-data',
                     eventName: 'dataSource'
+                },
+                {
+                    label: '查看json',
+                    icon: 'el-icon-view',
+                    eventName: 'codePreview'
                 },
                 {
                     label: '上传json',
@@ -87,13 +95,28 @@ export default {
                     this.dataSourceDialogVisible = true;
                     break;
 
+                case 'codePreview':
+                    this.jsonCodePreviewDrawerVisible = true;
+                    break;
+
                 case 'preview':
                     const id = UuidV4();
-                    const { node, data, methods } = this.store;
+                    const {
+                        node,
+                        data,
+                        methods,
+                        created,
+                        mounted,
+                        beforeDestroy
+                    } = this.store;
+                    
                     const content = {
                         node,
                         data,
-                        methods
+                        methods,
+                        created,
+                        mounted,
+                        beforeDestroy
                     };
 
                     localStorage.setItem(

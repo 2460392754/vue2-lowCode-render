@@ -29,7 +29,7 @@ export function proxyPositionStyle(nodeList) {
  * @returns
  */
 function getDraggableItemEl(__id__) {
-    return document.querySelector(`#draggableItemEl__${__id__}`);
+    return document.querySelector(`.draggableItemEl__${__id__}`);
 }
 
 /**
@@ -38,7 +38,7 @@ function getDraggableItemEl(__id__) {
  * @returns
  */
 function getREl(__id__) {
-    return document.querySelector(`#rEl__${__id__}>*`);
+    return document.querySelector(`.rEl__${__id__}`);
 }
 
 /**
@@ -50,15 +50,16 @@ function getREl(__id__) {
 function setRElPositionAttr(__id__, key, value) {
     const draggableItemEl = getDraggableItemEl(__id__);
 
-    draggableItemEl.style.setProperty('opacity', '0');
+    // draggableItemEl.style.setProperty('opacity', '0');
     draggableItemEl.style.setProperty('z-index', '999');
     draggableItemEl.style.setProperty('position', 'absolute');
     typeof key !== 'undefined' && draggableItemEl.style.setProperty(key, value);
+    setRElPositionInvalid(__id__);
 
-    setTimeout(() => {
-        setRElPositionInvalid(__id__);
-        draggableItemEl.style.setProperty('opacity', 1);
-    }, 100);
+    // setTimeout(() => {
+    //     // setRElPositionInvalid(__id__);
+    //     // draggableItemEl.style.setProperty('opacity', 1);
+    // }, 100);
 }
 
 /**

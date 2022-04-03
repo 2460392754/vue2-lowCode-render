@@ -1,5 +1,5 @@
 export default {
-    __name__: 'van 按钮',
+    __name__: 'vant 按钮',
     type: 'van-button',
     attribute: {
         style: {},

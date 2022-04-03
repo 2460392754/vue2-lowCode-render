@@ -53,12 +53,11 @@ export default {
          */
         onCloneDraggable(opts) {
             // 隔离引用
-            const temp = JSON.parse(JSON.stringify(opts));
+            const tempNode = JSON.parse(JSON.stringify(opts));
 
-            // 生产随机id
-            temp.__id__ = UuidV4();
+            this._setRandomId(tempNode);
 
-            return temp;
+            return tempNode;
         },
 
         /**
@@ -76,6 +75,18 @@ export default {
             const curNode = this.onCloneDraggable(this.list[opts.newIndex]);
 
             this.store.node.push(curNode);
+        },
+
+        /**
+         * 设置随机 __id__
+         * @param {*} node
+         */
+        _setRandomId(node) {
+            node.__id__ = UuidV4();
+
+            if (Array.isArray(node.children)) {
+                node.children.forEach(this._setRandomId);
+            }
         }
     }
 };

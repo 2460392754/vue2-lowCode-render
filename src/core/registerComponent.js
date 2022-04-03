@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import { handleRenderEl } from './renderEl';
 import { handleDataParse } from './renderElSupportFunc';
+import { onMounted, onBeforeMount, onUnmounted } from '@vue/composition-api';
 
 export default Vue.component('RegisterComponent', {
     props: {
@@ -15,11 +16,31 @@ export default Vue.component('RegisterComponent', {
         isEditor: {
             type: Boolean,
             required: true
+        },
+
+        /**
+         * 选中 node 节点
+         */
+        onChange: {
+            type: Function,
+            default: () => {}
         }
     },
 
     setup(props, { root }) {
         const jsonData = {};
+
+        onBeforeMount(() => {
+            eval(props.data.created);
+        });
+
+        onMounted(() => {
+            eval(props.data.mounted);
+        });
+
+        onUnmounted(() => {
+            eval(props.data.beforeDestroy);
+        });
 
         /**
          * 初始化
@@ -47,7 +68,8 @@ export default Vue.component('RegisterComponent', {
                 jsonData.node,
                 jsonData,
                 root.$createElement,
-                props.isEditor
+                props.isEditor,
+                props.onChange
             );
     }
 });

@@ -1,3 +1,7 @@
+const elementNode = {};
+
+export const privateId = 'rEl__';
+
 /**
  * 处理 data
  * @param data
@@ -67,4 +71,59 @@ export function objDeepEach(tempAttr, callback) {
             callback(k, val, tempAttr);
         }
     });
+}
+
+/**
+ * 添加某个 className
+ * @param {*} tempAttr
+ * @param {*} className
+ */
+export function addClassName(tempAttr, className) {
+    if (tempAttr.class.length === 0) {
+        tempAttr.class = className;
+    } else {
+        tempAttr.class += ' ' + className;
+    }
+}
+
+// /**
+//  * 删除某个 className
+//  * @param {*} tempAttr
+//  * @param {*} className
+//  * @returns
+//  */
+// export function removeClassName(tempAttr, className) {
+//     const reg = new RegExp(className, 'g');
+
+//     return tempAttr.class.replace(reg, '');
+// }
+
+/**
+ * 切换 组件激活状态
+ * @param {*} tempAttr
+ */
+export function handleSelectActiveClassToggle(id) {
+    toggleElementClassName(id, 'select-active');
+}
+
+/**
+ * 切换 className
+ * @param {*} tempAttr
+ * @param {*} className
+ */
+export function toggleElementClassName(id, className) {
+    let el = elementNode[id];
+
+    // 初始化
+    if (typeof el === 'undefined') {
+        el = document.querySelector('.' + privateId + id);
+        elementNode[id] = el;
+    }
+
+    // 删错所有当前 className
+    Object.values(elementNode).forEach((iEl) => {
+        iEl.className = iEl.className.replace(new RegExp(className, 'g'), '');
+    });
+
+    el.className += ' ' + className;
 }

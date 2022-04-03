@@ -12,13 +12,12 @@
                 <div
                     v-for="item in store.node"
                     :key="item.__id__"
-                    :id="'draggableItemEl__' + item.__id__"
                     :class="[
                         'draggable-item',
+                        'draggableItemEl__' + item.__id__,
                         item.__draggable__ !== false ? 'move' : '',
                         store.selectComponentId === item.__id__ ? 'active' : ''
                     ]"
-                    @click="onChangeComponent(item)"
                     @contextmenu.prevent="onContextmenu($event, item)"
                 >
                     <div class="pointerEvents">
@@ -29,16 +28,16 @@
                             "
                             class="el-icon-rank"
                         />
-                        <span :id="'rEl__' + item.__id__">
-                            <RegisterComponent
-                                :isEditor="true"
-                                :data="{
-                                    node: item,
-                                    data: store.data,
-                                    methods: store.methods
-                                }"
-                            />
-                        </span>
+                        <RegisterComponent
+                            :isEditor="true"
+                            :data="{
+                                // ...store,
+                                node: item,
+                                data: store.data,
+                                methods: store.methods
+                            }"
+                            :onChange="onChangeNode"
+                        />
                     </div>
                 </div>
             </transition-group>
@@ -52,6 +51,8 @@
 import Draggable from 'vuedraggable';
 import RegisterComponent from '@/core/registerComponent';
 import { proxyPositionStyle } from '@/utils/proxyPositionStyle';
+// import { RENDER_COMPONENT_CLICK_KEY } from '@/events/editor';
+import Vue from 'vue';
 
 export default {
     inject: ['store'],
@@ -71,50 +72,42 @@ export default {
         };
     },
 
-    // watch: {
-    //     // 监听节点数量变化，进行处理 需要绝对定位的样式 组件
-    //     'store.node.length'() {
-    //         proxyPositionStyle(this.store.node);
-    //     }
-    // },
-
     watch: {
         // 监听节点数量变化，进行处理 需要绝对定位的样式 组件
         'store.node': {
             handler() {
-                console.log('watch');
-
-                // this.store.node.forEach((node) => {
-                //     if (node.__draggable__ !== false) {
-                //         return;
-                //     }
-
-                //     // node.attribute.style.position = 'inherit';
-
-                //     this.$nextTick(() => {
-                //         const el = document.querySelector(
-                //             `#rEl__${node.__id__}>*`
-                //         );
-
-                //         el.style.setProperty('position', 'inherit');
-
-                //         console.log(el);
-                //     });
-                // });
-
                 proxyPositionStyle(this.store.node);
             },
             deep: true
         }
     },
 
+    created() {
+        eval(this.store.created);
+    },
+
+    mounted() {
+        eval(this.store.mounted);
+    },
+
+    beforeDestroy() {
+        eval(this.store.beforeDestroy);
+    },
+
+    // created() {
+    //     // 设置 已选择的组件id
+    //     Vue.prototype.$mitt.$on(RENDER_COMPONENT_CLICK_KEY, (opts) => {
+    //         this.store.selectComponentId = opts.node.__id__;
+    //     });
+    // },
+
     methods: {
         /**
-         * 选择 组件
-         * @param {*} item
+         * 选择组件
+         * @param {*} node
          */
-        onChangeComponent(item) {
-            this.store.selectComponentId = item.__id__;
+        onChangeNode(node) {
+            this.store.selectComponentId = node.__id__;
         },
 
         /**
@@ -157,7 +150,7 @@ export default {
 
 <style lang="scss" scoped>
 .pageContainer {
-    background: $bg-color;
+    background-color: $white-color;
     position: relative;
     width: 375px;
     height: 568px;
@@ -183,12 +176,12 @@ export default {
 }
 
 .draggable-item {
-    border: 1px dashed #ccc;
     position: relative;
+    // width: max-content;
 
     > .pointerEvents {
-        pointer-events: none;
-        user-select: none;
+        // pointer-events: none;
+        // user-select: none;
 
         &:after {
             content: '';
@@ -200,16 +193,20 @@ export default {
         }
     }
 
-    &:not(.move) {
+    &.move {
         cursor: all-scroll;
+
+        // &:hover {
+        //     border-color: red;
+        //     border-width: 2px;
+        // }
     }
 
-    &.active {
-        border-color: $primary-color;
-        border-width: 2px;
-        padding: 2px;
-        cursor: all-scroll;
-    }
+    // &.active {
+    //     border-color: $primary-color;
+    //     border-width: 2px;
+    //     padding: 2px;
+    // }
 
     &[draggable='true'] {
         opacity: 0.3 !important;

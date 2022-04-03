@@ -1,0 +1,2 @@
+import './compositionApi'
+import './vant';

@@ -17,6 +17,29 @@
                 </el-form-item>
             </template>
 
+            <!-- input 属性 -->
+            <template v-for="item of selectEditAttr">
+                <el-form-item
+                    v-if="getForm.__attribute__.style[item.key]"
+                    :key="item.key"
+                    :label="item.label"
+                >
+                    <el-select
+                        v-model="getForm.attribute.style[item.key]"
+                        placeholder="请选择内容"
+                        clearable
+                        @clear="onRemoveAttr($event, item.key)"
+                    >
+                        <el-option
+                            v-for="itemOpts in item.opts"
+                            :key="itemOpts.value"
+                            :label="itemOpts.label"
+                            :value="itemOpts.value"
+                        />
+                    </el-select>
+                </el-form-item>
+            </template>
+
             <!-- colorPicker 属性 -->
             <template v-for="item of colorPickerEditAttr">
                 <el-form-item
@@ -39,6 +62,8 @@
 </template>
 
 <script>
+import { getNode } from '@/utils/nodeTools';
+
 /**
  * 获取 input 类型的可编辑属性
  */
@@ -80,6 +105,31 @@ const getInputEditAttr = () => [
         key: 'fontSize'
     }
 ];
+
+/**
+ * 获取 select 类型的可编辑属性
+ */
+const getSelectEditAttr = () => [
+    {
+        label: '位置',
+        key: 'textAlign',
+        opts: [
+            {
+                label: '左',
+                value: 'left'
+            },
+            {
+                label: '中',
+                value: 'center'
+            },
+            {
+                label: '右',
+                value: 'right'
+            }
+        ]
+    }
+];
+
 /**
  * 获取 colorPicker 类型的可编辑属性
  */
@@ -99,21 +149,14 @@ export default {
 
     data() {
         return {
+            getForm: false,
             inputEditAttr: getInputEditAttr(),
+            selectEditAttr: getSelectEditAttr(),
             colorPickerEditAttr: getColorPickerEditAttr()
         };
     },
 
     computed: {
-        /**
-         * 获取 当前选择的组件属性表单
-         */
-        getForm() {
-            return this.store.node.find(
-                (item) => item.__id__ === this.store.selectComponentId
-            );
-        },
-
         /**
          * 是否有 可编辑 style 属性
          */
@@ -128,6 +171,18 @@ export default {
             }
 
             return true;
+        }
+    },
+
+    watch: {
+        'store.selectComponentId': {
+            handler() {
+                this.getForm = getNode(
+                    this.store.node,
+                    this.store.selectComponentId
+                );
+            },
+            immediate: true
         }
     },
 

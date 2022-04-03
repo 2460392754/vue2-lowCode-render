@@ -28,8 +28,8 @@
                 <template v-if="pItem.type === 'number'">
                     <el-input-number
                         v-model="getForm.attribute.props[k]"
-                        :min="pItem.opts.min"
-                        :max="pItem.opts.max"
+                        :min="pItem.opts.min || undefined"
+                        :max="pItem.opts.max || undefined"
                         label="描述文字"
                         controls-position="right"
                     />
@@ -41,6 +41,53 @@
                         clearable
                         placeholder="请输入内容"
                     />
+                </template>
+
+                <template v-if="pItem.type === 'upload'">
+                    <!-- <el-upload
+                        action="#"
+                        list-type="picture-card"
+                        :limit="1"
+                        :file-list="getForm.__attribute__.props[k].data"
+                        :before-upload="($event) => onBeforeUpload($event, k)"
+                        :before-remove="($event) => onRemove($event, k)"
+                    >
+                        <i
+                            v-if="
+                                getForm.__attribute__.props[k].data.length === 0
+                            "
+                            slot="default"
+                            class="el-icon-plus"
+                        />
+                    </el-upload> -->
+                    <el-upload
+                        action="#"
+                        list-type="picture-card"
+                        :limit="1"
+                        :file-list="getForm.__attribute__.props[k].data"
+                        :before-upload="($event) => onBeforeUpload($event, k)"
+                        :before-remove="($event) => onRemove($event, k)"
+                    >
+                        <el-button
+                            v-if="
+                                getForm.__attribute__.props[k].data.length === 0
+                            "
+                            size="small"
+                            type="primary"
+                            >点击上传</el-button
+                        >
+                        <div slot="tip" class="el-upload__tip">
+                            只能上传jpg/png文件，且不超过500kb
+                        </div>
+                    </el-upload>
+                    <!-- <el-upload
+                        action="#"
+                        list-type="picture-card"
+                        :limit="1"
+                        :file-list="getForm.__attribute__.props[k].data"
+                        :before-upload="($event) => onBeforeUpload($event, k)"
+                        :before-remove="($event) => onRemove($event, k)"
+                    /> -->
                 </template>
 
                 <template v-if="pItem.type === 'event'">
@@ -67,24 +114,25 @@
 
 <script>
 import BindDataSourceSelect from './bindDataSourceSelect';
+import { getNode } from '@/utils/nodeTools';
 
 export default {
     inject: ['store'],
+
+    data() {
+        return {
+            getForm: false,
+            upload: {
+                fileList: []
+            }
+        };
+    },
 
     components: {
         BindDataSourceSelect
     },
 
     computed: {
-        /**
-         * 获取 当前选择的组件属性表单
-         */
-        getForm() {
-            return this.store.node.find(
-                (item) => item.__id__ === this.store.selectComponentId
-            );
-        },
-
         /**
          * 是否有 可编辑 props 属性
          */
@@ -100,6 +148,72 @@ export default {
 
             return true;
         }
+    },
+
+    watch: {
+        'store.selectComponentId': {
+            handler() {
+                this.getForm = getNode(
+                    this.store.node,
+                    this.store.selectComponentId
+                );
+            },
+            immediate: true
+        }
+    },
+
+    methods: {
+        /**
+         * 图片上传
+         * @param {File} file
+         * @param {*} k
+         */
+        onBeforeUpload(file, k) {
+            if (file.size / 1025 > 500) {
+                window.$message.error('上传失败, 图片过大');
+                return false;
+            }
+
+            const reader = new FileReader();
+
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                this.getForm.attribute.props[k] = reader.result;
+                this.getForm.__attribute__.props[k].data = [
+                    {
+                        name: 'img',
+                        url: reader.result
+                    }
+                ];
+            };
+            reader.onerror = (error) => {
+                window.$message.error('图片上传错误');
+            };
+
+            return false;
+        },
+
+        /**
+         * 删除图片
+         * @param {*} k
+         */
+        onRemove(file, k) {
+            if (file.status === 'success') {
+                this.getForm.attribute.props[k] = '';
+                this.getForm.__attribute__.props[k].data = [];
+            }
+        },
+
+        handlePictureCardPreview(file) {
+            this.dialogImageUrl = file.url;
+            this.dialogVisible = true;
+        },
+
+        handleDownload(file) {
+            console.log(file);
+        }
     }
 };
 </script>
+
+<style lang="scss" scoped></style>

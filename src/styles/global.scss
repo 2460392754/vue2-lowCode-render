@@ -6,3 +6,42 @@
 body {
     font-size: 14px;
 }
+
+#app.editor {
+    .render-component {
+    }
+}
+
+.render-component {
+    position: relative;
+    // user-select: none;
+
+    &::before {
+        content: '';
+        border: 1px dashed #ccc;
+        width: calc(100% - 2px);
+        height: calc(100% - 2px);
+        // height: 100%;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        pointer-events: none;
+    }
+
+    &.select-active {
+        &::before {
+            // pointer-events: none;
+            z-index: 1000;
+            border-color: $primary-color;
+            border-width: 2px;
+            width: calc(100% - 4px);
+            height: calc(100% - 4px);
+        }
+    }
+
+    // .pointer-events-none {
+    //     pointer-events: none;
+    // }
+}

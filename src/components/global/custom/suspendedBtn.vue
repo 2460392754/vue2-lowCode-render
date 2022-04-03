@@ -1,5 +1,7 @@
 <template>
-    <van-icon name="like" @click="$emit('click')" />
+    <div class="container" @click="$emit('click')">
+        <van-icon name="like" />
+    </div>
 </template>
 
 <script>
@@ -9,9 +11,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.van-icon-like {
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     border-radius: 100%;
     box-shadow: 0px 0px 6px 0px #c3c3c3;
+    cursor: pointer;
 }
 </style>

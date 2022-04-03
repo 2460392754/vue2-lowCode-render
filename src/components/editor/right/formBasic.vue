@@ -16,24 +16,35 @@
 </template>
 
 <script>
+import { getNode } from '@/utils/nodeTools';
+
 export default {
     inject: ['store'],
 
-    computed: {
-        /**
-         * 获取 当前选择的组件属性表单
-         */
-        getForm() {
-            return this.store.node.find(
-                (item) => item.__id__ === this.store.selectComponentId
-            );
-        },
+    data() {
+        return {
+            getForm: false
+        };
+    },
 
+    computed: {
         /**
          * 是否有 可编辑的 值
          */
         hasEditValue() {
             return this.getForm.__children__ === true;
+        }
+    },
+
+    watch: {
+        'store.selectComponentId': {
+            handler() {
+                this.getForm = getNode(
+                    this.store.node,
+                    this.store.selectComponentId
+                );
+            },
+            immediate: true
         }
     }
 };

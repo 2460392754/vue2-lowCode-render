@@ -1,7 +1,10 @@
-const requireComp = require.context('./global', false, /\.vue$/);
-const getCompAll = requireComp.keys().map((comp) => requireComp(comp).default);
+const basicComp = require.context('./global', true, /\.vue$/);
 
-export const getCompNameAll = getCompAll.map((comp) => comp.name);
+function getCompAll(requireComp) {
+    return requireComp.keys().map((comp) => requireComp(comp).default);
+}
+
+export const getCompNameAll = getCompAll(basicComp).map((comp) => comp.name);
 
 export default {
     /**
@@ -9,7 +12,9 @@ export default {
      * @param {*} vue
      */
     install(vue) {
-        getCompAll.forEach((comp) => {
+        const compList = [...getCompAll(basicComp)];
+
+        compList.forEach((comp) => {
             vue.component(comp.name, comp);
         });
     }

@@ -20,6 +20,7 @@
 
 <script>
 import BindDataSourceSelect from './bindDataSourceSelect';
+import { getNode } from '@/utils/nodeTools';
 
 export default {
     inject: ['store'],
@@ -28,16 +29,13 @@ export default {
         BindDataSourceSelect
     },
 
-    computed: {
-        /**
-         * 获取 当前选择的组件属性表单
-         */
-        getForm() {
-            return this.store.node.find(
-                (item) => item.__id__ === this.store.selectComponentId
-            );
-        },
+    data() {
+        return {
+            getForm: false
+        };
+    },
 
+    computed: {
         /**
          * 是否有 可编辑 event 属性
          */
@@ -51,6 +49,18 @@ export default {
             }
 
             return true;
+        }
+    },
+
+    watch: {
+        'store.selectComponentId': {
+            handler() {
+                this.getForm = getNode(
+                    this.store.node,
+                    this.store.selectComponentId
+                );
+            },
+            immediate: true
         }
     }
 };

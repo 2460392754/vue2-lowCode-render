@@ -16,7 +16,17 @@ function vant() {
     return component;
 }
 
+function compNameAll() {
+    const obj = {};
+
+    getCompNameAll.map((name) => {
+        obj[name] = name;
+    });
+
+    return obj;
+}
+
 export default {
     ...vant(),
-    ...getCompNameAll
+    ...compNameAll()
 };

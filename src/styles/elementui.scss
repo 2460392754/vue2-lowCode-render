@@ -1,0 +1,16 @@
+.el-upload--picture-card {
+    width: inherit !important;
+    height: inherit !important;
+    line-height: inherit !important;
+    border: inherit !important;
+}
+
+.el-drawer {
+    &__wrapper {
+        position: inherit;
+    }
+
+    & {
+        position: fixed;
+    }
+}
