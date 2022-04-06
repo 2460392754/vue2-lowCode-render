@@ -16,7 +16,7 @@ export default {
             children: [BasicText]
         },
 
-        setNodeSlotName(BasicText, 'main'),
+        // setNodeSlotName(BasicText, 'main'),
 
         {
             type: 'div',

@@ -90,6 +90,14 @@
                     /> -->
                 </template>
 
+                <template v-if="pItem.type === 'color'">
+                    <el-color-picker
+                        v-model="getForm.attribute.props[k]"
+                        size="mini"
+                        @change="onRemoveAttr($event, k)"
+                    />
+                </template>
+
                 <template v-if="pItem.type === 'event'">
                     <BindDataSourceSelect
                         type="methods"
@@ -113,7 +121,7 @@
 </template>
 
 <script>
-import BindDataSourceSelect from './bindDataSourceSelect';
+import BindDataSourceSelect from './child/bindDataSourceSelect';
 import { getNode } from '@/utils/nodeTools';
 
 export default {
@@ -163,6 +171,18 @@ export default {
     },
 
     methods: {
+        /**
+         * 删除 属性
+         * @param {*} val
+         * @param {*} name
+         */
+        onRemoveAttr(val, name) {
+            // 数据被清空, 则删除对象的键名（防止覆盖css原本的属性）
+            if (val === null) {
+                Reflect.deleteProperty(this.getForm.attribute.props, name);
+            }
+        },
+
         /**
          * 图片上传
          * @param {File} file

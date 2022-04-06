@@ -74,22 +74,11 @@ export default {
         // 监听节点数量变化，进行处理 需要绝对定位的样式 组件
         'store.node': {
             handler() {
+                console.log('watch node')
                 proxyPositionStyle(this.store.node);
             },
             deep: true
         }
-    },
-
-    created() {
-        eval(this.store.created);
-    },
-
-    mounted() {
-        eval(this.store.mounted);
-    },
-
-    beforeDestroy() {
-        eval(this.store.beforeDestroy);
     },
 
     methods: {

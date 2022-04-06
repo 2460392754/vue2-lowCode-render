@@ -28,16 +28,21 @@ const editorMixin = {
     methods: {
         /**
          * 缩放变化
+         * @param {Object} opts
+         * @param {number} opts.x
+         * @param {number} opts.y
+         * @param {number} opts.width
+         * @param {number} opts.height
          */
-        onResize(x, y, width, height) {
+        onResize(opts) {
             const item = this.store.node.find(
                 (node) => node.__id__ === this.elId
             );
 
-            console.log(item.attribute.props.width, width, height, arguments);
+            console.log(item.attribute.props.width, JSON.stringify(opts));
 
-            item.attribute.props.width = width;
-            item.attribute.props.height = height;
+            item.attribute.props.width = opts.width;
+            item.attribute.props.height = opts.height;
         }
     }
 };

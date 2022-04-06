@@ -8,20 +8,23 @@ body {
 }
 
 #app.editor {
-    .render-component {
+    .editor-pointer-events-none {
+        pointer-events: none;
+    }
+    .user-select-none::before {
+        user-select: none;
     }
 }
 
 .render-component {
     position: relative;
-    // user-select: none;
+    user-select: none;
 
     &::before {
         content: '';
         border: 1px dashed #ccc;
         width: calc(100% - 2px);
         height: calc(100% - 2px);
-        // height: 100%;
         display: block;
         position: absolute;
         top: 0;
@@ -32,7 +35,6 @@ body {
 
     &.select-active {
         &::before {
-            // pointer-events: none;
             z-index: 1000;
             border-color: $primary-color;
             border-width: 2px;
@@ -40,8 +42,4 @@ body {
             height: calc(100% - 4px);
         }
     }
-
-    // .pointer-events-none {
-    //     pointer-events: none;
-    // }
 }

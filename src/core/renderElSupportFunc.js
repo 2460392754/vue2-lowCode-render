@@ -13,9 +13,13 @@ export function handleDataParse(data) {
     Object.keys(data || {}).forEach(async (k) => {
         const v = data[k];
 
-        // "eval('xxx')", 例如: "eval('console.log(`is eval`)')"
+        // 回调函数里的语句需要写分号
+        // "eval('xxx');", 例如: "eval('console.log(`is eval`)');"
         if (/^eval(.*?)$/.test(v)) {
-            tempData[k] = eval(v.replace(/^eval\(/, '').replace(/\)$/, ''));
+            // tempData[k] = eval(v.replace(/^eval\(/, '').replace(/\)$/, ''));
+            tempData[k] = eval(
+                v.replace(/^eval\(/, '').replace(/\);?\s?$/, '')
+            );
         }
     });
 
@@ -37,21 +41,28 @@ export function hasJsonPathMatch(matchPath) {
  * @param matchPath
  * @returns
  */
-export function handleParseJsonPathMatch(jsonData, matchPath) {
-    if (!hasJsonPathMatch(matchPath)) {
+export function handleParseJsonPathMatch(jsonData, matchPath, isCheck = true) {
+    if (isCheck && !hasJsonPathMatch(matchPath)) {
         throw new TypeError('json解析属性错误');
     }
 
-    return matchPath.match(/{{[\S\d]+}}/g).map((name) => {
-        const pathList = name.replace(/[{}]/g, '').split('.');
-        const afterPath = pathList.map((path) => `["${path}"]`).join('');
+    const matchRes = matchPath.match(/{{[\S\d]+}}/g);
 
-        return {
-            pathList,
-            afterPath: 'jsonData' + afterPath,
-            beforePath: name
-        };
-    });
+    // 跳过 非必校验的数据
+    if (matchRes === null) {
+        return [];
+    } else {
+        return matchRes.map((name) => {
+            const pathList = name.replace(/[{}]/g, '').split('.');
+            const afterPath = pathList.map((path) => `["${path}"]`).join('');
+
+            return {
+                pathList,
+                afterPath: 'jsonData' + afterPath,
+                beforePath: name
+            };
+        });
+    }
 }
 
 /**
@@ -126,4 +137,17 @@ export function toggleElementClassName(id, className) {
     });
 
     el.className += ' ' + className;
+}
+
+export function getJSONStrFunc(jsonData, str) {
+    let resStr = str;
+
+    handleParseJsonPathMatch(jsonData, str, false).forEach((item) => {
+        resStr = resStr.replace(
+            new RegExp(item.beforePath, 'g'),
+            item.afterPath
+        );
+    });
+
+    return resStr;
 }

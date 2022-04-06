@@ -1,5 +1,5 @@
 <template>
-    <van-form @submit="onSubmit">
+    <van-form @submit="onSubmitCustom">
         <van-field
             v-model="form.username"
             name="用户名"
@@ -44,18 +44,9 @@ export default {
         }
     },
 
-    // data() {
-    //     return {
-    //         form: {
-    //             username: '',
-    //             password: ''
-    //         }
-    //     };
-    // },
-
     methods: {
-        customSubmit(){
-            
+        onSubmitCustom() {
+            this.onSubmit();
         }
     }
 };

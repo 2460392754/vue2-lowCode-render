@@ -17,7 +17,7 @@
                 </el-form-item>
             </template>
 
-            <!-- input 属性 -->
+            <!-- select 属性 -->
             <template v-for="item of selectEditAttr">
                 <el-form-item
                     v-if="getForm.__attribute__.style[item.key]"
@@ -48,6 +48,11 @@
                     :label="item.label"
                     class="colorPicker"
                 >
+                    <!-- <el-color-picker
+                        :value="getForm.attribute.style[item.key]"
+                        size="mini"
+                        @change="onRemoveAttr($event, item.key)"
+                    /> -->
                     <el-color-picker
                         v-model="getForm.attribute.style[item.key]"
                         size="mini"
@@ -63,6 +68,7 @@
 
 <script>
 import { getNode } from '@/utils/nodeTools';
+import Vue from 'vue';
 
 /**
  * 获取 input 类型的可编辑属性

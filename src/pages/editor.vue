@@ -14,7 +14,8 @@ import Left from '@/components/editor/left';
 import Right from '@/components/editor/right';
 import Header from '@/components/editor/header';
 import Main from '@/components/editor/main';
-// import DemoEditorJson from '@/assets/demo/demo-editor.json';
+import PagesEslintEditorJS from '@/pages/business/eslint';
+import { setDeepNodeRandomId } from '@/utils/nodeTools';
 
 export default {
     components: {
@@ -36,22 +37,41 @@ export default {
                 selectComponentId: null,
                 node: [],
                 data: {
-                    // stepActive: 'eval(window.$ref(0))',
+                    // pageStep: 'eval(window.$ref(0))',
                     // stepList:
                     //     "eval([{'title':'登录','desc':'这是登录页'}, {'title':'首页','desc':'这是首页'}])",
-                    loginData:
-                        "eval(window.$ref({username:'11',password:'22'}))"
+                    // loginData:
+                    //     "eval(window.$ref({username:'11',password:'22'}))"
                 },
                 methods: {
-                    onSubmitCallback: "window.$toast.success('操作成功');"
+                    // onSubmitCallback: "window.$toast.success('操作成功');"
                 },
-                created: "console.log('is created')"
+                created: '',
+                mounted: '',
+                beforeDestroy: ''
             }
         };
     },
 
     created() {
-        // this.store.node = DemoEditorJson.node;
+        // const { node, data, methods, created, mounted, beforeDestroy } =
+        //     PagesEslintEditorJS;
+
+        // setDeepNodeRandomId(node);
+        // Object.assign(this.store, {
+        //     node,
+        //     data,
+        //     methods,
+        //     created,
+        //     mounted,
+        //     beforeDestroy
+        // });
+
+        // ===
+        // const { node, data, methods } = PagesEslintEditorJson;
+
+        // Object.assign(this.store, { node, data, methods });
+        // this.store.node = PagesEslintEditorJson.node;
     }
 };
 </script>

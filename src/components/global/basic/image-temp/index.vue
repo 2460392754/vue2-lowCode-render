@@ -1,20 +1,29 @@
 <template>
-    <div class="baiscImage">
+    <div
+        class="baiscImage"
+        :style="{ width: width + 'px', height: height + 'px' }"
+    >
         <template v-if="$isH5">
             <van-image v-bind="{ ...$props }" />
         </template>
 
         <template v-else>
-            <VueDragResize
-                :isActive="isSelect"
-                :isDraggable="false"
-                :aspectRatio="true"
+            <vue-draggable-resizable
                 :w="width"
                 :h="height"
+                :draggable="false"
+                :lockAspectRatio="true"
                 @resizing="onResize"
             >
                 <van-image v-bind="{ ...$props }" />
-            </VueDragResize>
+            </vue-draggable-resizable>
+            <!-- <VueDragResize
+                :isActive="isSelect"
+                :isDraggable="false"
+                :aspectRatio="true"
+                @resizing="onResize"
+            >
+            </VueDragResize> -->
         </template>
     </div>
 </template>
@@ -23,7 +32,7 @@
 import Mixin from './mixin';
 
 export default {
-    name: 'basicImage',
+    name: 'basicImageXXX',
 
     mixins: [Mixin],
 
@@ -59,11 +68,16 @@ export default {
 
 .vdr {
     display: inline-block;
-    position: inherit !important;
-    top: inherit !important;
-    left: inherit !important;
+    // position: inherit !important;
+    transform: inherit !important;
+    top: 0 !important;
+    // top: inherit !important;
+    left: 0 !important;
+    // left: inherit !important;
     right: inherit !important;
     bottom: inherit !important;
+    width: 100% !important;
+    height: 100% !important;
 }
 .vdr-stick {
     z-index: 999;

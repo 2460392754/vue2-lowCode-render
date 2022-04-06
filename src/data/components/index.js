@@ -1,10 +1,11 @@
-const requireBasic = require.context('./basic', false, /\.js$/);
-const basic = requireBasic.keys().map((comp) => requireBasic(comp).default);
+const requireDemo = require.context('./demo', false, /\.js$/);
+const demo = requireDemo.keys().map((comp) => requireDemo(comp).default);
 // ===
-const requireCustom = require.context('./custom', false, /\.js$/);
-const custom = requireCustom.keys().map((comp) => requireCustom(comp).default);
+const basic = Object.values(require('./basic'));
+const pageEslint = Object.values(require('./pages/eslint'));
 
 export default {
     basic,
-    custom
+    demo,
+    pageEslint
 };

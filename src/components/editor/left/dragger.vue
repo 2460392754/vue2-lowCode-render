@@ -16,7 +16,7 @@
 </template>
 <script>
 import Draggable from 'vuedraggable';
-import { v4 as UuidV4 } from 'uuid';
+import { setDeepNodeRandomId } from '@/utils/nodeTools';
 
 export default {
     inject: ['store'],
@@ -55,7 +55,7 @@ export default {
             // 隔离引用
             const tempNode = JSON.parse(JSON.stringify(opts));
 
-            this._setRandomId(tempNode);
+            setDeepNodeRandomId(tempNode);
 
             return tempNode;
         },
@@ -75,18 +75,6 @@ export default {
             const curNode = this.onCloneDraggable(this.list[opts.newIndex]);
 
             this.store.node.push(curNode);
-        },
-
-        /**
-         * 设置随机 __id__
-         * @param {*} node
-         */
-        _setRandomId(node) {
-            node.__id__ = UuidV4();
-
-            if (Array.isArray(node.children)) {
-                node.children.forEach(this._setRandomId);
-            }
         }
     }
 };

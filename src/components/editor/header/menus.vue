@@ -96,6 +96,7 @@ export default {
                     break;
 
                 case 'codePreview':
+                      console.log(JSON.stringify(this.store, null, 4));
                     this.jsonCodePreviewDrawerVisible = true;
                     break;
 
@@ -109,6 +110,8 @@ export default {
                         mounted,
                         beforeDestroy
                     } = this.store;
+
+                  
                     
                     const content = {
                         node,

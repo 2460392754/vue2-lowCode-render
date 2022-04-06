@@ -1,3 +1,3 @@
-import Vue from 'vue';
+// import Vue from 'vue';
 
-Vue.prototype.$mitt = new Vue();
+// Vue.prototype.$mitt = new Vue();

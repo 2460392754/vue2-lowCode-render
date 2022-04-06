@@ -89,11 +89,15 @@ export default {
                     return;
                 }
 
-                const { node, data, methods } = this.store;
+                const { node, data, methods, created, mounted, beforeDestroy } =
+                    this.store;
                 const content = {
                     node,
                     data,
-                    methods
+                    methods,
+                    created,
+                    mounted,
+                    beforeDestroy
                 };
 
                 const contentStr = formatJson(

@@ -2,18 +2,19 @@ export default {
     __name__: '文本',
     type: 'basicText',
     attribute: {
-        class:'aaabb',
+        class: 'isTextTest',
         style: {
             textAlign: 'center',
-            fontSize: '15px',
-            padding: '5px',
-            color: '#000'
+            fontSize: '14px',
+            // padding: '5px',
+            color: '#000',
+            backgroundImage: ''
         },
         props: {
             value: '这是文本'
         },
         on: {
-            click: '{{methods.onSubmitCallback}}'
+            click: ''
         }
     },
     children: [],
@@ -21,13 +22,18 @@ export default {
         style: {
             textAlign: true,
             fontSize: true,
-            padding: true,
+            // padding: true,
             color: true
         },
         props: {
             value: {
                 name: '内容',
                 type: 'input'
+            },
+            backgroundImage: {
+                name: '图片地址',
+                type: 'upload',
+                data: []
             }
         },
         on: {

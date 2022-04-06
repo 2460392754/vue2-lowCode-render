@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import { handleRenderEl } from './renderEl';
-import { handleDataParse } from './renderElSupportFunc';
+import { handleDataParse, getJSONStrFunc } from './renderElSupportFunc';
 import { onMounted, onBeforeMount, onUnmounted } from '@vue/composition-api';
 
 export default Vue.component('RegisterComponent', {
@@ -30,18 +30,6 @@ export default Vue.component('RegisterComponent', {
     setup(props, { root }) {
         const jsonData = {};
 
-        onBeforeMount(() => {
-            eval(props.data.created);
-        });
-
-        onMounted(() => {
-            eval(props.data.mounted);
-        });
-
-        onUnmounted(() => {
-            eval(props.data.beforeDestroy);
-        });
-
         /**
          * 初始化
          * @param newJsonData
@@ -62,6 +50,27 @@ export default Vue.component('RegisterComponent', {
         }
 
         init(jsonData, props.data);
+
+        // 非编辑环境
+        if (Vue.prototype.$isH5) {
+            Vue.prototype.store = jsonData;
+
+            for (const [key, val] of Object.entries(props.data.methods)) {
+                props.data.methods[key] = getJSONStrFunc(jsonData, val);
+            }
+
+            onBeforeMount(() => {
+                eval(getJSONStrFunc(jsonData, props.data.created || ''));
+            });
+
+            onMounted(() => {
+                eval(getJSONStrFunc(jsonData, jsonData.mounted));
+            });
+
+            onUnmounted(() => {
+                eval(getJSONStrFunc(jsonData, props.data.beforeDestroy || ''));
+            });
+        }
 
         return () =>
             handleRenderEl(

@@ -8,8 +8,17 @@ const fields = ['top', 'bottom', 'left', 'right'];
  */
 export function proxyPositionStyle(nodeList) {
     nodeList.forEach((node) => {
-        const { __id__, attribute } = node;
-        const { style } = node.__attribute__;
+        const { __id__, __attribute__, attribute, children } = node;
+
+        if (typeof __attribute__ === 'undefined') {
+            if (Array.isArray(children)) {
+                proxyPositionStyle(children);
+            }
+
+            return;
+        }
+
+        const { style } = __attribute__;
 
         // 处理 编辑器环境下的 组件绝对定位
         if (typeof style === 'undefined' || style.position !== true) {
@@ -18,6 +27,7 @@ export function proxyPositionStyle(nodeList) {
 
         // 初始化同步数据
         Vue.nextTick(() => {
+            // console.log(JSON.stringify(attribute, null, 4));
             initRElPositionStyle(__id__, attribute.style);
         });
     });
@@ -53,6 +63,7 @@ function setRElPositionAttr(__id__, key, value) {
     // draggableItemEl.style.setProperty('opacity', '0');
     draggableItemEl.style.setProperty('z-index', '999');
     draggableItemEl.style.setProperty('position', 'absolute');
+    // draggableItemEl.style.setProperty('width', '100%');
     typeof key !== 'undefined' && draggableItemEl.style.setProperty(key, value);
     setRElPositionInvalid(__id__);
 

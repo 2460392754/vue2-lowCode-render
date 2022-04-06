@@ -20,6 +20,7 @@ export function handleRenderEl(node, jsonData, h, isEditor, onChange) {
 
     let renderList;
 
+    // 非编辑环境，不渲染数据（避免数据混乱造成json内容异常）
     !isEditor && handleBindValue(node, jsonData);
 
     // 处理 `jsonData.node` 为数组结构
@@ -57,9 +58,8 @@ export function handleRenderEl(node, jsonData, h, isEditor, onChange) {
 
     // 渲染
     if (typeof node.type === 'string') {
-        // const tempAttr = JSON.parse(JSON.stringify(node.attribute));
-        const tempAttr = { ...node.attribute };
-        // const tempAttr = node.attribute;
+        const tempAttr = JSON.parse(JSON.stringify(node.attribute));
+        // const tempAttr = { ...node.attribute };
 
         // 初始化
         handleAttributeInit(tempAttr, node);
@@ -78,7 +78,6 @@ export function handleRenderEl(node, jsonData, h, isEditor, onChange) {
 
         // 处理 样式
         handleStyle(tempAttr);
-        // handleElRefBind(tempAttr, jsonData);
 
         return h(ComponentName[node.type] || node.type, tempAttr, renderList);
     }
@@ -91,18 +90,18 @@ export function handleRenderEl(node, jsonData, h, isEditor, onChange) {
  * @param {*} tempAttr
  */
 function handleAttributeInit(tempAttr, node) {
-    const objK = ['attrs', 'on', 'nativeOn'];
+    const objK = ['attrs', 'on', 'nativeOn', 'style'];
     const strK = ['class'];
 
     objK.forEach((k) => {
         if (typeof tempAttr[k] === 'undefined') {
+            tempAttr[k] = {};
+
             if (
-                !(
-                    k === 'nativeOn' &&
-                    typeof ComponentName[node.type] === 'undefined'
-                )
+                k === 'nativeOn' &&
+                typeof ComponentName[node.type] === 'undefined'
             ) {
-                tempAttr[k] = {};
+                Reflect.deleteProperty(tempAttr, k);
             }
         }
     });
@@ -240,6 +239,10 @@ function handleBindEvent(tempAttr, node, jsonData, isEditor, onChange) {
 
     // 编辑环境
     if (isEditor) {
+        Reflect.deleteProperty(tempAttr.on, 'click');
+        tempAttr.nativeOn && Reflect.deleteProperty(tempAttr.nativeOn, 'click');
+
+        // html标签使用
         const eventType =
             typeof ComponentName[node.type] !== 'undefined' ? 'nativeOn' : 'on';
 
@@ -253,44 +256,51 @@ function handleBindEvent(tempAttr, node, jsonData, isEditor, onChange) {
         };
     }
 
-    Object.keys(tempAttr).forEach((k) => {
-        if (eventKeys.includes(k)) {
-            objDeepEach(tempAttr[k], (eventName, val, obj) => {
-                const toEventName = obj[eventName];
+    // 非编辑环境，不渲染数据（避免数据混乱造成json内容异常）
+    else {
+        Object.keys(tempAttr).forEach((k) => {
+            if (eventKeys.includes(k)) {
+                objDeepEach(tempAttr[k], (eventName, val, obj) => {
+                    const toEventName = obj[eventName];
 
-                // 过滤 vue2 createFnInvoker
-                if (typeof toEventName !== 'string') {
-                    return true;
-                }
+                    // 过滤 vue2 createFnInvoker 函数
+                    if (typeof toEventName !== 'string') {
+                        return true;
+                    }
 
-                // 过滤非 "{{methods.xxxx}}" 动态变量
-                if (!/^{{methods./.test(toEventName)) {
-                    return true;
-                }
+                    // 过滤非 "{{methods.xxxx}}" 动态变量
+                    if (!/^{{methods./.test(toEventName)) {
+                        return true;
+                    }
 
-                let func = eval(
-                    handleParseJsonPathMatch(jsonData, toEventName)[0].afterPath
-                );
+                    let func = eval(
+                        handleParseJsonPathMatch(jsonData, toEventName)[0]
+                            .afterPath
+                    );
 
-                // 匹配命中，解析规则
-                if (hasJsonPathMatch(func)) {
-                    const mathcRes = handleParseJsonPathMatch(jsonData, func);
-
-                    mathcRes.forEach((item) => {
-                        func = func.replace(
-                            new RegExp(item.beforePath),
-                            item.afterPath
+                    // 匹配命中，解析规则
+                    if (hasJsonPathMatch(func)) {
+                        const mathcRes = handleParseJsonPathMatch(
+                            jsonData,
+                            func
                         );
-                    });
-                }
 
-                // 重新保存引用
-                obj[eventName] = function () {
-                    eval(func);
-                };
-            });
-        }
-    });
+                        mathcRes.forEach((item) => {
+                            func = func.replace(
+                                new RegExp(item.beforePath),
+                                item.afterPath
+                            );
+                        });
+                    }
+
+                    // 重新保存引用
+                    obj[eventName] = function () {
+                        eval(func);
+                    };
+                });
+            }
+        });
+    }
 }
 
 /**

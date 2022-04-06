@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import BindDataSourceSelect from './bindDataSourceSelect';
+import BindDataSourceSelect from './child/bindDataSourceSelect';
 import { getNode } from '@/utils/nodeTools';
 
 export default {

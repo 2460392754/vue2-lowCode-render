@@ -1,0 +1,131 @@
+{
+    "vue": 2,
+    "editorVersion": 1,
+    "editorEdit": true,
+    "node": [
+        {
+            "__name__": "注册页-图片",
+            "type": "PageEslintRegisterBanner",
+            "attribute": {
+                "style": {
+                    "margin": "0px"
+                },
+                "props": {
+                    "fit": "cover",
+                    "width": 375,
+                    "height": 150,
+                    "src": "https://partner-yanxin.oss-cn-beijing.aliyuncs.com/client-admin/comMobileMould/enlist/1624329510598.png"
+                },
+                "on": {}
+            },
+            "children": [],
+            "__attribute__": {
+                "style": {
+                    "margin": true
+                },
+                "props": {
+                    "fit": {
+                        "name": "填充模式",
+                        "type": "select",
+                        "data": [
+                            {
+                                "label": "拉伸图片，使图片填满元素",
+                                "value": "fill"
+                            },
+                            {
+                                "label": "保持宽高缩放图片，使图片的长边能完全显示出来",
+                                "value": "contain"
+                            },
+                            {
+                                "label": "保持宽高缩放图片，使图片的短边能完全显示出来，裁剪长边",
+                                "value": "cover"
+                            },
+                            {
+                                "label": "保持图片原有尺寸",
+                                "value": "none"
+                            },
+                            {
+                                "label": "危险",
+                                "value": "scale-down"
+                            }
+                        ]
+                    },
+                    "width": {
+                        "name": "宽度",
+                        "type": "number",
+                        "opts": {}
+                    },
+                    "height": {
+                        "name": "高度",
+                        "type": "number",
+                        "opts": {}
+                    },
+                    "src": {
+                        "name": "图片地址",
+                        "type": "upload",
+                        "data": [
+                            {
+                                "name": "img",
+                                "url": "https://partner-yanxin.oss-cn-beijing.aliyuncs.com/client-admin/comMobileMould/enlist/1624329510598.png",
+                                "uid": 1649011891023,
+                                "status": "success"
+                            }
+                        ]
+                    }
+                }
+            },
+            "__id__": "aa0ca030-f2b9-4c1a-bfea-4ad5f4cc9640"
+        },
+        {
+            "__name__": "注册页-表单",
+            "type": "PageEslintRegisterForm",
+            "attribute": {
+                "style": {}
+            },
+            "children": [
+                {
+                    "__name__": "表单按钮",
+                    "type": "basicButton",
+                    "attribute": {
+                        "slot": "submitBtn",
+                        "style": {
+                            "fontSize": "18px"
+                        },
+                        "props": {
+                            "color": "#fff",
+                            "backgroundColor": "#ccc"
+                        }
+                    },
+                    "children": "提交",
+                    "__attribute__": {
+                        "style": {
+                            "fontSize": true
+                        },
+                        "props": {
+                            "color": {
+                                "name": "字体颜色",
+                                "type": "color"
+                            },
+                            "backgroundColor": {
+                                "name": "背景颜色",
+                                "type": "color"
+                            }
+                        }
+                    },
+                    "__children__": true,
+                    "__id__": "6492a27f-0caf-4dc6-8af0-0c5df9612966"
+                }
+            ],
+            "__attribute__": {
+                "style": {}
+            },
+            "__id__": "356a8653-8632-4593-a975-0f6e2bac3636"
+        }
+    ],
+    "data": {
+        "pageStep": "eval(window.$ref(0))"
+    },
+    "methods": {
+        "onSubmitCallback": "window.$toast.success('操作成功');"
+    }
+}
