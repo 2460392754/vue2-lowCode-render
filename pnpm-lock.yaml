@@ -14,8 +14,6 @@ specifiers:
   eslint: ^7.32.0
   eslint-plugin-vue: ^8.0.3
   highlight.js: 9.15.8
-  lodash-es: ^4.17.21
-  md5: ^2.3.0
   prettier: ^2.6.0
   uuid: ^8.3.2
   vant: ^2.12.45
@@ -34,8 +32,6 @@ dependencies:
   core-js: 3.21.1
   element-ui: registry.npmmirror.com/element-ui/2.15.6_vue@2.6.14
   highlight.js: registry.npmmirror.com/highlight.js/9.15.8
-  lodash-es: registry.npmmirror.com/lodash-es/4.17.21
-  md5: registry.npmmirror.com/md5/2.3.0
   uuid: registry.npmmirror.com/uuid/8.3.2
   vant: registry.npmmirror.com/vant/2.12.45_vue@2.6.14
   vue: 2.6.14
@@ -6519,12 +6515,6 @@ packages:
       supports-color: registry.npmmirror.com/supports-color/7.2.0
     dev: true
 
-  registry.npmmirror.com/charenc/0.0.2:
-    resolution: {integrity: sha512-yrLQ/yVUFXkzg7EDQsPieE/53+0RlaWTs+wBrvW36cyilJ2SaDWfl4Yj7MtLTXleV9uEKefbAGUPv2/iWSooRA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/charenc/-/charenc-0.0.2.tgz}
-    name: charenc
-    version: 0.0.2
-    dev: false
-
   registry.npmmirror.com/color-convert/1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/color-convert/-/color-convert-1.9.3.tgz}
     name: color-convert
@@ -6609,12 +6599,6 @@ packages:
     version: 2.6.12
     deprecated: core-js@<3.4 is no longer maintained and not recommended for usage due to the number of issues. Because of the V8 engine whims, feature detection in old core-js versions could cause a slowdown up to 100x even if nothing is polyfilled. Please, upgrade your dependencies to the actual version of core-js.
     requiresBuild: true
-    dev: false
-
-  registry.npmmirror.com/crypt/0.0.2:
-    resolution: {integrity: sha512-mCxBlsHFYh9C+HVpiEacem8FEBnMXgU9gy4zmNC+SXAZNB/1idgp/aulFJ4FgCi7GPEVbfyng092GqL2k2rmow==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/crypt/-/crypt-0.0.2.tgz}
-    name: crypt
-    version: 0.0.2
     dev: false
 
   registry.npmmirror.com/cssesc/3.0.0:
@@ -6769,12 +6753,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  registry.npmmirror.com/is-buffer/1.1.6:
-    resolution: {integrity: sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/is-buffer/-/is-buffer-1.1.6.tgz}
-    name: is-buffer
-    version: 1.1.6
-    dev: false
-
   registry.npmmirror.com/json-schema-traverse/0.4.1:
     resolution: {integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/json-schema-traverse/-/json-schema-traverse-0.4.1.tgz}
     name: json-schema-traverse
@@ -6817,12 +6795,6 @@ packages:
       json5: registry.npmmirror.com/json5/1.0.1
     dev: true
 
-  registry.npmmirror.com/lodash-es/4.17.21:
-    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/lodash-es/-/lodash-es-4.17.21.tgz}
-    name: lodash-es
-    version: 4.17.21
-    dev: false
-
   registry.npmmirror.com/lodash.kebabcase/4.1.1:
     resolution: {integrity: sha512-N8XRTIMMqqDgSy4VLKPnJ/+hpGZN+PHQiJnSenYqPaVV/NCqEogTnAdZLQiGKhxX+JCs8waWq2t1XHWKOmlY8g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/lodash.kebabcase/-/lodash.kebabcase-4.1.1.tgz}
     name: lodash.kebabcase
@@ -6843,16 +6815,6 @@ packages:
       pseudomap: registry.npmmirror.com/pseudomap/1.0.2
       yallist: registry.npmmirror.com/yallist/2.1.2
     dev: true
-
-  registry.npmmirror.com/md5/2.3.0:
-    resolution: {integrity: sha512-T1GITYmFaKuO91vxyoQMFETst+O71VUPEU3ze5GNzDm0OWdP8v1ziTaAEPUr/3kLsY3Sftgz242A1SetQiDL7g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/md5/-/md5-2.3.0.tgz}
-    name: md5
-    version: 2.3.0
-    dependencies:
-      charenc: registry.npmmirror.com/charenc/0.0.2
-      crypt: registry.npmmirror.com/crypt/0.0.2
-      is-buffer: registry.npmmirror.com/is-buffer/1.1.6
-    dev: false
 
   registry.npmmirror.com/merge-source-map/1.1.0:
     resolution: {integrity: sha512-Qkcp7P2ygktpMPh2mCQZaf3jhN6D3Z/qVZHSdWvQ+2Ef5HgRAPBO57A77+ENm0CPx2+1Ce/MYKi3ymqdfuqibw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/merge-source-map/-/merge-source-map-1.1.0.tgz}
