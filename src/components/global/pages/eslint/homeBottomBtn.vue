@@ -1,5 +1,5 @@
 <template>
-    <div class="PageEslintHomeBottomBtn" @click="onClickBtn">
+    <div class="PageEslintHomeBottomBtn editor-pointer-events-none" @click="onClickBtn">
         <slot />
     </div>
 </template>

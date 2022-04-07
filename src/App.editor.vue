@@ -7,9 +7,9 @@
 
 <script>
 import Page from './pages/editor.vue';
-import Demo from '@/components/demo.vue';
+// import Demo from '@/components/demo.vue';
 
-console.log(Demo);
+// console.log(Demo);
 
 export default {
     name: 'App',

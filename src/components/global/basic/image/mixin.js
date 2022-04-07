@@ -1,4 +1,5 @@
 import { getNodeElId } from '@/utils/nodeTools';
+import { privateId } from '@/core/renderElSupportFunc';
 
 const h5Mixin = {};
 
@@ -22,7 +23,11 @@ const editorMixin = {
     },
 
     mounted() {
-        this.elId = getNodeElId(this.$el.parentElement.id);
+        const id = this.$el.className
+            .split(' ')
+            .find((name) => name.includes(privateId));
+
+        this.elId = getNodeElId(id);
     },
 
     methods: {
@@ -35,11 +40,13 @@ const editorMixin = {
          * @param {number} opts.height
          */
         onResize(opts) {
+            const maxW = 375;
             const item = this.store.node.find(
                 (node) => node.__id__ === this.elId
             );
 
-            console.log(item.attribute.props.width, JSON.stringify(opts));
+            if (opts.width > maxW) return;
+            // console.log(item.attribute.props.width, JSON.stringify(opts));
 
             item.attribute.props.width = opts.width;
             item.attribute.props.height = opts.height;

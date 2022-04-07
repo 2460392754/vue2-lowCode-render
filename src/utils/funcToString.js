@@ -1,7 +1,7 @@
 export const funcToString = (func) => {
     let funcStr = func.toString();
 
-    // 移除函数
+    // 移除 最外层函数
     funcStr = funcStr.replace(/^\(\) => {/, '');
     funcStr = funcStr.replace(/^function \(\) {/, '');
     funcStr = funcStr.replace(/}$/, '');

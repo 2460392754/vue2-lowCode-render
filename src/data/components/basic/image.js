@@ -4,7 +4,6 @@ export default {
     attribute: {
         style: {
             textAlign: 'left',
-            margin: '0px'
         },
         props: {
             round: false,
@@ -19,7 +18,6 @@ export default {
     __attribute__: {
         style: {
             textAlign: true,
-            margin: true
         },
         props: {
             round: {
@@ -52,16 +50,16 @@ export default {
                     }
                 ]
             },
-            width: {
-                name: '宽度',
-                type: 'number',
-                opts: {}
-            },
-            height: {
-                name: '高度',
-                type: 'number',
-                opts: {}
-            },
+            // width: {
+            //     name: '宽度',
+            //     type: 'number',
+            //     opts: {}
+            // },
+            // height: {
+            //     name: '高度',
+            //     type: 'number',
+            //     opts: {}
+            // },
             src: {
                 name: '图片地址',
                 type: 'upload',

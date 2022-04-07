@@ -26,4 +26,6 @@ pnpm run build
 
 ## 注意事项
 
-###
+### 组件样式 `postision: fixed`
+
+需要为根组件，不能嵌套在其他 `children` 里面。因为在编辑模式下，需要让 fixed。
