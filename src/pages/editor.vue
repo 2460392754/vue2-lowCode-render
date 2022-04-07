@@ -35,6 +35,7 @@ export default {
         return {
             store: {
                 selectComponentId: null,
+                pageName: null,
                 node: [],
                 data: {
                     // pageStep: 'eval(window.$ref(0))',
@@ -54,9 +55,9 @@ export default {
     },
 
     created() {
+        this.store.pageName = new URLSearchParams(window.location.search).get('page');
         // const { node, data, methods, created, mounted, beforeDestroy } =
         //     PagesEslintEditorJS;
-
         // setDeepNodeRandomId(node);
         // Object.assign(this.store, {
         //     node,
@@ -66,10 +67,8 @@ export default {
         //     mounted,
         //     beforeDestroy
         // });
-
         // ===
         // const { node, data, methods } = PagesEslintEditorJson;
-
         // Object.assign(this.store, { node, data, methods });
         // this.store.node = PagesEslintEditorJson.node;
     }

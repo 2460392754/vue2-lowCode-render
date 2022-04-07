@@ -96,37 +96,49 @@ export default {
                     break;
 
                 case 'codePreview':
-                      console.log(JSON.stringify(this.store, null, 4));
+                    console.log(JSON.stringify(this.store, null, 4));
                     this.jsonCodePreviewDrawerVisible = true;
                     break;
 
                 case 'preview':
-                    const id = UuidV4();
-                    const {
-                        node,
-                        data,
-                        methods,
-                        created,
-                        mounted,
-                        beforeDestroy
-                    } = this.store;
+                    if (this.store.pageName === null) {
+                        const id = UuidV4();
+                        const {
+                            node,
+                            data,
+                            methods,
+                            created,
+                            mounted,
+                            beforeDestroy
+                        } = this.store;
 
-                  
-                    
-                    const content = {
-                        node,
-                        data,
-                        methods,
-                        created,
-                        mounted,
-                        beforeDestroy
-                    };
+                        const content = {
+                            node,
+                            data,
+                            methods,
+                            created,
+                            mounted,
+                            beforeDestroy
+                        };
 
-                    localStorage.setItem(
-                        `jsonData_${id}`,
-                        formatJson(content, true, true)
-                    );
-                    window.open(`./h5.html?id=${id}`);
+                        localStorage.setItem(
+                            `jsonData_${id}`,
+                            formatJson(content, true, true)
+                        );
+                        window.open(`./h5.html?id=${id}`);
+                    } else {
+                        import(
+                            `@/pages/business/${this.store.pageName}/json.js`
+                        ).then((res) => {
+                            localStorage.setItem(
+                                `jsonData_${this.store.pageName}`,
+                                formatJson(res.default, true, true)
+                            );
+
+                            window.open(`./h5.html?id=${this.store.pageName}`);
+                        });
+                    }
+
                     break;
 
                 case 'delete':

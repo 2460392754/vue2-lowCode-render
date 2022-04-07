@@ -1,6 +1,10 @@
 <template>
     <div class="PageEslintRegisterSuccessDialog">
         PageEslintRegisterSuccessDialog
+        <div class="card">
+            <slot name="bannerImg" />
+            <slot name="registerSuccessTips" />
+        </div>
         <div>
             <slot name="closeBtn" />
         </div>
@@ -23,8 +27,27 @@ export default {
 .PageEslintRegisterSuccessDialog {
     background-color: #000;
     width: 100%;
-    height: 100%;
+    // height: 100%;
+    height: 667px;
     overflow: hidden;
+
+    .card {
+        background-color: #fff;
+        border-radius: 18px;
+        width: 300px;
+        margin: 0 auto;
+        overflow: hidden;
+        margin-top: 60px;
+
+        .bannerImg {
+            height: 120px;
+        }
+
+        .registerSuccessTips {
+            font-weight: bold;
+            margin: 10px 0 20px;
+        }
+    }
 
     .closeBtn {
         width: 30px;

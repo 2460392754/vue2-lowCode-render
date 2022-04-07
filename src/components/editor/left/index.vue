@@ -1,7 +1,7 @@
 <template>
     <el-aside width="400px" class="left">
-        <template v-if="getPageName">
-            <PageList :pageName="getPageName" />
+        <template v-if="store.pageName">
+            <PageList :pageName="store.pageName" />
         </template>
 
         <template v-else>
@@ -17,6 +17,8 @@ import ComponentList from './componentList.vue';
 import PageList from './pageList.vue';
 
 export default {
+    inject: ['store'],
+
     components: {
         Tabs,
         ComponentList,
@@ -44,15 +46,6 @@ export default {
                 }
             ]
         };
-    },
-
-    computed: {
-        getPageName() {
-            const query = new URLSearchParams(window.location.search);
-            const page = query.get('page');
-
-            return page;
-        }
     }
 };
 </script>

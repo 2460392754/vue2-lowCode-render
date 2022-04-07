@@ -9,6 +9,45 @@ export default {
     children: [
         mergeDeep(BasicText, {
             attribute: {
+                slot: 'bannerImg',
+                class: 'bannerImg',
+                props: {
+                    value: '',
+                    backgroundImage:
+                        'https://partner-yanxin.oss-cn-beijing.aliyuncs.com/client-admin/comMobileMould/enlist/1624329733690.png'
+                }
+            },
+            __attribute__: {
+                props: {
+                    value: null
+                },
+                style: {
+                    textAlign: null,
+                    color: null,
+                    fontSize: null
+                }
+            }
+        }),
+        mergeDeep(BasicText, {
+            attribute: {
+                slot: 'registerSuccessTips',
+                class: 'registerSuccessTips',
+                props: {
+                    value: '报名成功！'
+                },
+                style: {
+                    color: '#FF383B',
+                    fontSize: '24px'
+                }
+            },
+            __attribute__: {
+                props: {
+                    backgroundImage: null
+                }
+            }
+        }),
+        mergeDeep(BasicText, {
+            attribute: {
                 slot: 'closeBtn',
                 class: 'closeBtn',
                 props: {

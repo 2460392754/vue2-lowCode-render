@@ -47,9 +47,9 @@ module.exports = defineConfig({
             config.optimization.delete('splitChunks');
         }
 
-        //     config
-        //         .plugin('webpack-bundle-analyzer')
-        //         .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin);
+            // config
+            //     .plugin('webpack-bundle-analyzer')
+            //     .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin);
     },
 
     configureWebpack: () => {
@@ -72,9 +72,10 @@ module.exports = defineConfig({
                         }
                     }
                 },
+
                 plugins: [
                     new CompressionPlugin({
-                        test: /\.js$|\.html$|\.css$/,
+                        test: /\.js$|\.css$/,
                         threshold: 10240,
                         deleteOriginalAssets: false
                     })

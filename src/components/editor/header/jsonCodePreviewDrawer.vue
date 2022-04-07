@@ -23,9 +23,9 @@
                 />
             </CopyToClipboard>
 
-            <pre v-highlightjs>
-                <code class="json">{{ codeStr }}</code>
-            </pre>
+            <highlight-code lang="json">
+                {{ codeStr }}
+            </highlight-code>
         </div>
     </el-drawer>
 </template>
@@ -119,7 +119,7 @@ export default {
         top: 30px;
     }
 
-    pre {
+    ::v-deep pre {
         display: flex;
         height: 100%;
 
