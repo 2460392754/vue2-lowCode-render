@@ -3,7 +3,8 @@ import Vue from 'vue';
 const fields = ['top', 'bottom', 'left', 'right'];
 
 /**
- * 代理 定位样式
+ * css代理
+ * 代理 定位样式 （position: fixed;）
  * @param {*} nodeList
  */
 export function proxyPositionStyle(nodeList) {

@@ -8,6 +8,16 @@ export default {
             eval(window.$ref(0));
         }),
 
+        // 注册信息
+        userInfo: funcToString(() => {
+            eval(
+                window.$ref({
+                    name: '',
+                    mobile: ''
+                })
+            );
+        }),
+
         // 感兴趣 人数
         interestedPeopleCount: funcToString(() => {
             eval(window.$ref(0));
@@ -29,22 +39,13 @@ export default {
             console.log('{{data.pageStep}}'.value);
         }),
 
-        setUserName: funcToString(() => {
-            console.log(jsonData);
-            // console.log('is methods setUserName');
-            // '{{data.userName}}'.value = 'is FTY';
-
-            // console.log('username:', '{{data.userName}}'.value);
-            // console.log('{{data.userName}}');
-
-            // window.$toast.success('修改用户名成功');
-
-            // setTimeout(() => {
-            '{{data.userName}}'.value = 'Admin';
-            window.$toast.success('修改用户名成功');
-            // }, 1000);
+        // 设置用户信息
+        setUserInfo: funcToString(() => {
+            '{{data.userInfo}}'.value.name = 'Admin';
+            '{{data.userInfo}}'.value.mobile = '18812341234';
         }),
 
+        // 切换 注册成功弹窗 状态
         toggleRegisterSuccessDialog: funcToString(() => {
             const d = '{{data.registerSuccessDialogVisible}}';
 
@@ -58,6 +59,6 @@ export default {
 
     mounted: funcToString(() => {
         console.log('is mounted');
-        eval('{{methods.setUserName}}');
+        eval('{{methods.setUserInfo}}');
     })
 };

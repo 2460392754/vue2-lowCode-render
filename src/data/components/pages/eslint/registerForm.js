@@ -6,6 +6,7 @@ export default {
     type: 'PageEslintRegisterForm',
     attribute: {
         props: {
+            form: '{{data.userInfo}}',
             onNextPage: '{{methods.onNextPage}}'
         }
     },
@@ -15,5 +16,5 @@ export default {
                 slot: 'submitBtn'
             }
         })
-    ],
+    ]
 };

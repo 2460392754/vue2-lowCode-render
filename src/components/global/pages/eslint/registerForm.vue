@@ -28,7 +28,7 @@ export default {
 
     props: {
         form: {
-            type: [Object, String],
+            type: window.$projectEnv === 'editor' ? String : Object,
             default: () => ({
                 name: '',
                 mobile: ''

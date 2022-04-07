@@ -31,7 +31,6 @@
                         <RegisterComponent
                             :isEditor="true"
                             :data="{
-                                // ...store,
                                 node: item,
                                 data: store.data,
                                 methods: store.methods
@@ -74,7 +73,6 @@ export default {
         // 监听节点数量变化，进行处理 需要绝对定位的样式 组件
         'store.node': {
             handler() {
-                console.log('watch node')
                 proxyPositionStyle(this.store.node);
             },
             deep: true
@@ -157,12 +155,8 @@ export default {
 
 .draggable-item {
     position: relative;
-    // width: max-content;
 
     > .pointerEvents {
-        // pointer-events: none;
-        // user-select: none;
-
         &:after {
             content: '';
             height: 0;
@@ -175,18 +169,7 @@ export default {
 
     &.move {
         cursor: all-scroll;
-
-        // &:hover {
-        //     border-color: red;
-        //     border-width: 2px;
-        // }
     }
-
-    // &.active {
-    //     border-color: $primary-color;
-    //     border-width: 2px;
-    //     padding: 2px;
-    // }
 
     &[draggable='true'] {
         opacity: 0.3 !important;
