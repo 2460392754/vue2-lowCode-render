@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve",
-        "build": "vue-cli-service build",
+        "build": "vue-cli-service build --no-module",
         "lint": "vue-cli-service lint",
         "prettier": "prettier --config ./.prettierrc.js --write  \"./**/*.{js,json,tsx,css,less,scss,vue,html,md,ts,d.ts}\""
     },
