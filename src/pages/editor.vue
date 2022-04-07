@@ -55,7 +55,9 @@ export default {
     },
 
     created() {
-        this.store.pageName = new URLSearchParams(window.location.search).get('page');
+        this.store.pageName = new URLSearchParams(window.location.search).get(
+            'page'
+        );
         // const { node, data, methods, created, mounted, beforeDestroy } =
         //     PagesEslintEditorJS;
         // setDeepNodeRandomId(node);

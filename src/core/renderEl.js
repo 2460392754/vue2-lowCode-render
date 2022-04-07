@@ -295,13 +295,13 @@ function handleBindEvent(tempAttr, node, jsonData, isEditor, onChange) {
 
                     // 事件不为空
                     // if (!!func) {
-                        // 重新保存引用
-                        obj[eventName] = function () {
-                            eval(func);
-                        };
+                    // 重新保存引用
+                    obj[eventName] = function () {
+                        eval(func);
+                    };
                     // } else {
-                        // console.log(eventName, func, node);
-                        // obj[eventName] = () => {};
+                    // console.log(eventName, func, node);
+                    // obj[eventName] = () => {};
                     // }
                 });
             }

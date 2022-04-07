@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import App from './App.h5.vue';
-import './plugins/common'
+import './plugins/common';
 
 import Component from './components/index';
 import './styles/index.scss';

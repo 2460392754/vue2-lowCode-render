@@ -15,7 +15,7 @@ export default {
     name: 'App',
 
     components: {
-        Page,
+        Page
         // Demo
     }
 };

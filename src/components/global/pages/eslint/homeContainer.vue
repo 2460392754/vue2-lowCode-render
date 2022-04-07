@@ -20,7 +20,7 @@ export default {
 <style lang="scss" scoped>
 .PageEslintHomeContainer {
     padding-bottom: 40px;
-    
+
     .bg {
         width: 100%;
     }

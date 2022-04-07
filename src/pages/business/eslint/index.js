@@ -1,7 +1,7 @@
 import DataAndMethods from './dataAndMethods';
 import PageHome from './block/home';
 import PageRegister from './block/register';
-import DialogRegisterDialog from './dialog/registerSuccess'
+import DialogRegisterDialog from './dialog/registerSuccess';
 
 export function merge(node) {
     return {
@@ -31,5 +31,5 @@ export default [
         type: 'DialogRegisterDialog',
         icon: 'el-icon-copy-document',
         data: merge(DialogRegisterDialog)
-    },
+    }
 ];

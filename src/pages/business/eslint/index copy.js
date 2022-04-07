@@ -19,8 +19,6 @@ export default {
         //         }
         //     }
         // })
-     
-
         // { type: 'div', attribute: {}, children: '{{data.pageStep}}' },
         // mergeDeep(
         //     pageContainer,
@@ -61,7 +59,5 @@ export default {
         //         ]
         //     }
         // )
-    ],
-
-   
+    ]
 };

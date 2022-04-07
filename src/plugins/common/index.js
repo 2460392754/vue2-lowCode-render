@@ -1,2 +1,2 @@
-import './compositionApi'
+import './compositionApi';
 import './vant';

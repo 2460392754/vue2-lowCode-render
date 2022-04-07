@@ -5,9 +5,9 @@ export const funcToString = (func) => {
     funcStr = funcStr.replace(/^\(\) => {/, '');
     funcStr = funcStr.replace(/^function \(\) {/, '');
     funcStr = funcStr.replace(/}$/, '');
-    
+
     // 移除 字符串限制
-    // '{{data.pageStep}}'.value++; => {{data.pageStep}}.value++;
+    // '{{data.pageStep}}'.value++;   =>   {{data.pageStep}}.value++;
     funcStr = funcStr.replace(/'{{/g, '{{');
     funcStr = funcStr.replace(/}}'/g, '}}');
 
