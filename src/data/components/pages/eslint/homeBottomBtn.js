@@ -1,26 +1,3 @@
-import { BasicButton } from '@/data/components/basic';
-import { mergeDeep } from '@/utils/nodeTools';
-
-// export default mergeDeep(BasicButton, {
-//     __name__: '首页底部按钮',
-//     __draggable__: false,
-//     attribute: {
-//         style: {
-//             position: 'fixed',
-//             bottom: '0px',
-//             zIndex: '9999'
-//         },
-//         props: {
-//             block: true
-//         }
-//     },
-//     children: '我感兴趣',
-//     __attribute__: {
-//         style: {
-//             position: true
-//         }
-//     }
-// });
 export default {
     __name__: '首页底部按钮',
     __draggable__: false,
@@ -34,7 +11,9 @@ export default {
             color: '#fff',
             backgroundColor: '#409eff'
         },
-        props: {}
+        props: {
+            onNextPage: '{{methods.onNextPage}}'
+        }
     },
     children: '我感兴趣',
     __attribute__: {

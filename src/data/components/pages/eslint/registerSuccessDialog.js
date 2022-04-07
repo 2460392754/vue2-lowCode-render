@@ -54,6 +54,9 @@ export default {
                     value: '',
                     backgroundImage:
                         'https://partner-yanxin.oss-cn-beijing.aliyuncs.com/client-admin/comMobileMould/com/1633776555633.png'
+                },
+                on: {
+                    click: '{{methods.toggleRegisterSuccessDialog}}'
                 }
             },
             __attribute__: {

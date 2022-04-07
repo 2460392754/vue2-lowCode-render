@@ -4,7 +4,11 @@ import { mergeDeep } from '@/utils/nodeTools';
 export default {
     __name__: '注册页-表单',
     type: 'PageEslintRegisterForm',
-    attribute: {},
+    attribute: {
+        props: {
+            onNextPage: '{{methods.onNextPage}}'
+        }
+    },
     children: [
         mergeDeep(BasicButton, {
             attribute: {

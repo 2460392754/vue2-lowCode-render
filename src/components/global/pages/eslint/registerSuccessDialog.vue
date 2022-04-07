@@ -1,6 +1,11 @@
 <template>
-    <div class="PageEslintRegisterSuccessDialog">
-        PageEslintRegisterSuccessDialog
+    <div
+        v-if="
+            $isEditor ||
+            ($isH5 && store.data.registerSuccessDialogVisible.value)
+        "
+        class="PageEslintRegisterSuccessDialog"
+    >
         <div class="card">
             <slot name="bannerImg" />
             <slot name="registerSuccessTips" />

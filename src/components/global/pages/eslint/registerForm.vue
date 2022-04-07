@@ -34,12 +34,10 @@ export default {
                 mobile: ''
             })
         },
-        onSubmit: {
-            /**
-             * 静态编译传递的 字符串路径
-             */
-            type: [Function, String],
-            default: () => {}
+
+        onNextPage: {
+            type: window.$projectEnv === 'editor' ? String : Function,
+            required: true
         }
     },
 
@@ -53,11 +51,16 @@ export default {
 
                 setTimeout(() => {
                     resolve(toast);
-                }, 1000 * 3);
+                }, 1000 * 1);
             }).then((toast) => {
                 toast.clear();
                 window.$toast.success('提交成功');
-                this.onSubmit();
+
+                // this.store.data.registerSuccessDialogVisible.value = true;
+                // or
+                ((jsonData) => {
+                    eval(this.store.methods.toggleRegisterSuccessDialog);
+                })(this.store);
             });
         }
     }

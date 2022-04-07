@@ -1,12 +1,29 @@
 <template>
-    <div class="PageEslintHomeBottomBtn">
+    <div class="PageEslintHomeBottomBtn" @click="onClickBtn">
         <slot />
     </div>
 </template>
 
 <script>
 export default {
-    name: 'PageEslintHomeBottomBtn'
+    name: 'PageEslintHomeBottomBtn',
+
+    props: {
+        onNextPage: {
+            type: window.$projectEnv === 'editor' ? String : Function,
+            required: true
+        }
+    },
+
+    methods: {
+        onClickBtn() {
+            window.$toast('请注册');
+
+            // this.store.data.pageStep.value++;
+            // or
+            this.onNextPage();
+        }
+    }
 };
 </script>
 
@@ -14,5 +31,6 @@ export default {
 .PageEslintHomeBottomBtn {
     width: 375px;
     padding: 10px 0;
+    z-index: 99;
 }
 </style>
