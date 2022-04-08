@@ -33,11 +33,11 @@ export default {
                     type: 'layer',
                     icon: 'el-icon-coin'
                 },
-                {
-                    title: '设置',
-                    type: 'setting',
-                    icon: 'el-icon-setting'
-                }
+                // {
+                //     title: '设置',
+                //     type: 'setting',
+                //     icon: 'el-icon-setting'
+                // }
             ]
         };
     },

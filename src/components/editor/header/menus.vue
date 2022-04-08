@@ -7,6 +7,7 @@
 
         <div
             v-for="(item, i) of list"
+            v-if="!(item.check && store.pageName !== null)"
             :key="i"
             class="menu"
             @click="onClickMenu(item.eventName)"
@@ -45,7 +46,8 @@ export default {
                 {
                     label: '数据源',
                     icon: 'el-icon-s-data',
-                    eventName: 'dataSource'
+                    eventName: 'dataSource',
+                    check: true
                 },
                 {
                     label: '查看json',
@@ -55,17 +57,20 @@ export default {
                 {
                     label: '上传json',
                     icon: 'el-icon-upload',
-                    eventName: 'upload'
+                    eventName: 'upload',
+                    check: true
                 },
                 {
                     label: '导出json',
                     icon: 'el-icon-download',
-                    eventName: 'save'
+                    eventName: 'save',
+                    check: true
                 },
                 {
                     label: '清空',
                     icon: 'el-icon-delete-solid',
-                    eventName: 'delete'
+                    eventName: 'delete',
+                    check: true
                 },
                 {
                     label: '预览',

@@ -10,7 +10,11 @@
             <el-tab-pane label="组件属性" name="2">
                 <FormAttribute />
             </el-tab-pane>
-            <el-tab-pane label="事件绑定" name="3">
+            <el-tab-pane
+                v-if="store.pageName === null"
+                label="事件绑定"
+                name="3"
+            >
                 <FormEventBind />
             </el-tab-pane>
         </el-tabs>

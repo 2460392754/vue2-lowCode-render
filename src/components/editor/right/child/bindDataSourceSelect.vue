@@ -1,8 +1,9 @@
 <template>
     <el-select
-        v-model="obj[objK]"
+        :value="getValue"
         placeholder="请选择数据源"
         clearable
+        @change="onChange"
         @clear="onClear"
     >
         <el-option
@@ -44,12 +45,40 @@ export default {
         }
     },
 
+    computed: {
+        getValue() {
+            const val = this.obj[this.objK];
+
+            if (this.type === 'data') {
+                return val;
+            } else {
+                if (val === '__functionNull__') {
+                    return null;
+                }
+
+                return val;
+            }
+        }
+    },
+
     methods: {
+        /**
+         * 切换
+         * @param {string} val
+         */
+        onChange(val) {
+            this.obj[this.objK] = val;
+        },
+
         /**
          * 数据被清空后，则删除对象的键名
          */
         onClear() {
-            Reflect.deleteProperty(this.obj, this.objK);
+            if (this.type === 'data') {
+                Reflect.deleteProperty(this.obj, this.objK);
+            } else {
+                this.onChange('__functionNull__');
+            }
         }
     }
 };

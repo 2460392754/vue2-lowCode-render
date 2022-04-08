@@ -15,8 +15,6 @@ import Left from '@/components/editor/left';
 import Right from '@/components/editor/right';
 import Header from '@/components/editor/header';
 import Main from '@/components/editor/main';
-import PagesEslintEditorJS from '@/pages/business/eslint';
-import { setDeepNodeRandomId } from '@/utils/nodeTools';
 
 export default {
     components: {
@@ -61,22 +59,6 @@ export default {
         );
 
         Vue.prototype.store = this.store;
-
-        // const { node, data, methods, created, mounted, beforeDestroy } =
-        //     PagesEslintEditorJS;
-        // setDeepNodeRandomId(node);
-        // Object.assign(this.store, {
-        //     node,
-        //     data,
-        //     methods,
-        //     created,
-        //     mounted,
-        //     beforeDestroy
-        // });
-        // ===
-        // const { node, data, methods } = PagesEslintEditorJson;
-        // Object.assign(this.store, { node, data, methods });
-        // this.store.node = PagesEslintEditorJson.node;
     }
 };
 </script>

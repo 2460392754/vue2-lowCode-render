@@ -270,7 +270,7 @@ function handleBindEvent(tempAttr, node, jsonData, isEditor, onChange) {
 
                     // 过滤非 "{{methods.xxxx}}" 动态变量, 并填充为空函数（避免触发事件导致异常）
                     if (!/^{{methods./.test(toEventName)) {
-                        toEventName === '__Function__' &&
+                        toEventName === '__functionNull__' &&
                             (obj[eventName] = () => {});
                         return true;
                     }

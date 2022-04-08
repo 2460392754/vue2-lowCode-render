@@ -15,7 +15,7 @@
           "backgroundImage": ""
         },
         "props": { "value": "姓名: {{data.myName}}, 年龄: {{data.myAge}}" },
-        "on": { "click": "__Function__" }
+        "on": { "click": "__functionNull__" }
       },
       "children": [],
       "__attribute__": {

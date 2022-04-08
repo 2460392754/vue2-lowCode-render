@@ -14,7 +14,7 @@ export default {
             value: '这是文本'
         },
         on: {
-            click: '__Function__'
+            click: '__functionNull__'
         }
     },
     children: [],
