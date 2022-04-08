@@ -32,6 +32,8 @@ export default {
             return;
         }
 
+        // console.log(JSON.stringify(jsonData))
+
         this.jsonData = jsonData;
     }
 };

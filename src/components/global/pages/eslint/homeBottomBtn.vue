@@ -1,5 +1,8 @@
 <template>
-    <div class="PageEslintHomeBottomBtn editor-pointer-events-none" @click="onClickBtn">
+    <div
+        class="PageEslintHomeBottomBtn editor-pointer-events-none"
+        @click="onClickBtn"
+    >
         <slot />
     </div>
 </template>
@@ -10,7 +13,7 @@ export default {
 
     props: {
         onNextPage: {
-            type: window.$projectEnv === 'editor' ? String : Function,
+            type: [String, Function],
             required: true
         }
     },
@@ -21,6 +24,8 @@ export default {
 
             // this.store.data.pageStep.value++;
             // or
+
+            console.log(this.onNextPage)
             this.onNextPage();
         }
     }

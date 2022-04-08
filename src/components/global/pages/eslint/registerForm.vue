@@ -28,7 +28,7 @@ export default {
 
     props: {
         form: {
-            type: window.$projectEnv === 'editor' ? String : Object,
+            type: [String, Object],
             default: () => ({
                 name: '',
                 mobile: ''
@@ -36,7 +36,7 @@ export default {
         },
 
         onNextPage: {
-            type: window.$projectEnv === 'editor' ? String : Function,
+            type: [String, Function],
             required: true
         }
     },

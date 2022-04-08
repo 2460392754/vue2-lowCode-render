@@ -96,7 +96,7 @@ export default {
                     break;
 
                 case 'codePreview':
-                    console.log(JSON.stringify(this.store, null, 4));
+                    // console.log(JSON.stringify(this.store, null, 4));
                     this.jsonCodePreviewDrawerVisible = true;
                     break;
 

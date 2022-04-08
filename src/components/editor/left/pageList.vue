@@ -24,7 +24,7 @@ export default {
 
     data() {
         return {
-            tabActive: 2,
+            tabActive: 0,
             tabList: []
         };
     },

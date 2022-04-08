@@ -235,8 +235,8 @@ function handleElementIdClass(tempAttr, id) {
  * @returns
  */
 function handleBindEvent(tempAttr, node, jsonData, isEditor, onChange) {
-    // const eventKeys = ['on', 'nativeOn', 'props'];
-    const eventKeys = ['on', 'nativeOn'];
+    const eventKeys = ['on', 'nativeOn', 'props'];
+    // const eventKeys = ['on', 'nativeOn'];
 
     // 编辑环境
     if (isEditor) {
@@ -271,7 +271,8 @@ function handleBindEvent(tempAttr, node, jsonData, isEditor, onChange) {
 
                     // 过滤非 "{{methods.xxxx}}" 动态变量, 并填充为空函数（避免触发事件导致异常）
                     if (!/^{{methods./.test(toEventName)) {
-                        obj[eventName] = () => {};
+                        toEventName === '__Function__' &&
+                            (obj[eventName] = () => {});
                         return true;
                     }
 

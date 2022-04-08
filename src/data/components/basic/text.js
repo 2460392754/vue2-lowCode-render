@@ -14,7 +14,7 @@ export default {
             value: '这是文本'
         },
         on: {
-            click: ''
+            click: '__Function__'
         }
     },
     children: [],
@@ -38,7 +38,7 @@ export default {
         },
         on: {
             click: {
-                name: '点击'
+                name: '点击事件'
             }
         }
     }

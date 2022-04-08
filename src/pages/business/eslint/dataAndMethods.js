@@ -12,7 +12,7 @@ export default {
         userInfo: funcToString(() => {
             eval(
                 window.$ref({
-                    name: '',
+                    name: "",
                     mobile: ''
                 })
             );
