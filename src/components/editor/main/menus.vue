@@ -32,7 +32,7 @@ export default {
                     title: '图层',
                     type: 'layer',
                     icon: 'el-icon-coin'
-                },
+                }
                 // {
                 //     title: '设置',
                 //     type: 'setting',

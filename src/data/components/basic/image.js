@@ -3,7 +3,7 @@ export default {
     type: 'basicImage',
     attribute: {
         style: {
-            textAlign: 'left',
+            textAlign: 'left'
         },
         props: {
             round: false,
@@ -17,7 +17,7 @@ export default {
     children: [],
     __attribute__: {
         style: {
-            textAlign: true,
+            textAlign: true
         },
         props: {
             round: {

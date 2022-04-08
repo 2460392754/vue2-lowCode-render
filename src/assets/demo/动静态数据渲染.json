@@ -1,44 +1,46 @@
 {
-  "vue": 2,
-  "editorVersion": 1,
-  "editorEdit": true,
-  "node": [
-    {
-      "__name__": "文本",
-      "type": "basicText",
-      "attribute": {
-        "class": "isTextTest",
-        "style": {
-          "textAlign": "center",
-          "fontSize": "14px",
-          "color": "#000",
-          "backgroundImage": ""
-        },
-        "props": { "value": "姓名: {{data.myName}}, 年龄: {{data.myAge}}" },
-        "on": { "click": "__functionNull__" }
-      },
-      "children": [],
-      "__attribute__": {
-        "style": { "textAlign": true, "fontSize": true, "color": true },
-        "props": {
-          "value": { "name": "内容", "type": "input" },
-          "backgroundImage": {
-            "name": "图片地址",
-            "type": "upload",
-            "data": []
-          }
-        },
-        "on": { "click": { "name": "点击事件" } }
-      },
-      "__id__": "88992860-a677-48a3-9eff-9e07d8104256"
-    }
-  ],
-  "data": {
-      "myName":"eval(window.$ref('isFty'))",
-      "myAge":"eval(22)"
-  },
-  "methods": {},
-  "created": "",
-  "mounted": "",
-  "beforeDestroy": ""
+    "vue": 2,
+    "editorVersion": 1,
+    "editorEdit": true,
+    "node": [
+        {
+            "__name__": "文本",
+            "type": "basicText",
+            "attribute": {
+                "class": "isTextTest",
+                "style": {
+                    "textAlign": "center",
+                    "fontSize": "14px",
+                    "color": "#000",
+                    "backgroundImage": ""
+                },
+                "props": {
+                    "value": "姓名: {{data.myName}}, 年龄: {{data.myAge}}"
+                },
+                "on": { "click": "__functionNull__" }
+            },
+            "children": [],
+            "__attribute__": {
+                "style": { "textAlign": true, "fontSize": true, "color": true },
+                "props": {
+                    "value": { "name": "内容", "type": "input" },
+                    "backgroundImage": {
+                        "name": "图片地址",
+                        "type": "upload",
+                        "data": []
+                    }
+                },
+                "on": { "click": { "name": "点击事件" } }
+            },
+            "__id__": "88992860-a677-48a3-9eff-9e07d8104256"
+        }
+    ],
+    "data": {
+        "myName": "eval(window.$ref('isFty'))",
+        "myAge": "eval(22)"
+    },
+    "methods": {},
+    "created": "",
+    "mounted": "",
+    "beforeDestroy": ""
 }
