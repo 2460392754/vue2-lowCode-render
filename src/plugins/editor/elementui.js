@@ -1,6 +1,63 @@
 import Vue from 'vue';
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+import {
+    Button,
+    Select,
+    Tree,
+    Tooltip,
+    Empty,
+    Aside,
+    Drawer,
+    Container,
+    Main,
+    Header,
+    Table,
+    TableColumn,
+    Icon,
+    Input,
+    Form,
+    FormItem,
+    Dialog,
+    Tabs,
+    TabPane,
+    ColorPicker,
+    Upload,
+    Option,
+    Switch,
+    Popconfirm,
+    Message,
+    MessageBox
+} from 'element-ui';
 
-Vue.use(ElementUI);
-window.$message = ElementUI.Message;
+const compList = [
+    Button,
+    Select,
+    Tree,
+    Tooltip,
+    Empty,
+    Aside,
+    Drawer,
+    Container,
+    Main,
+    Header,
+    Table,
+    TableColumn,
+    Icon,
+    Input,
+    Form,
+    FormItem,
+    Dialog,
+    Tabs,
+    TabPane,
+    ColorPicker,
+    Upload,
+    Option,
+    Switch,
+    Popconfirm
+];
+
+compList.forEach((comp) => {
+    Vue.use(comp);
+});
+
+Vue.prototype.$confirm = MessageBox.confirm;
+window.$message = Message;
