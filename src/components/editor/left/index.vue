@@ -35,13 +35,8 @@ export default {
                     icon: 'el-icon-edit'
                 },
                 {
-                    type: 'demo',
-                    title: 'demo组件',
-                    icon: 'el-icon-edit'
-                },
-                {
                     type: 'pageEslint',
-                    title: 'pageEslint组件',
+                    title: 'pageEslint页面组件',
                     icon: 'el-icon-edit'
                 }
             ]
