@@ -19,7 +19,7 @@ export const funcToString = (func) => {
     // 移除注释
     funcStr = funcStr.replace(/\/\/[\S( ?)]+/g, '');
 
-    // 代码格式化，需要填写分号或逗号
+    // 代码格式化，需要填写分号或逗号(匹配逗号或分号)
     funcStr = funcStr.replace(/((?<!:\s?''),)|;/g, '; ');
 
     return funcStr;

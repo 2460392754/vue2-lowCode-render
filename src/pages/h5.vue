@@ -4,6 +4,7 @@
 
 <script>
 import RegisterComponent from '@/core/registerComponent';
+import Vue from 'vue';
 
 export default {
     components: {
@@ -34,6 +35,7 @@ export default {
 
         // console.log(JSON.stringify(jsonData))
 
+        Vue.prototype.store = jsonData;
         this.jsonData = jsonData;
     }
 };

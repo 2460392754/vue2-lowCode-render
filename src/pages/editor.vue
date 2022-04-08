@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import Left from '@/components/editor/left';
 import Right from '@/components/editor/right';
 import Header from '@/components/editor/header';
@@ -58,6 +59,9 @@ export default {
         this.store.pageName = new URLSearchParams(window.location.search).get(
             'page'
         );
+
+        Vue.prototype.store = this.store;
+
         // const { node, data, methods, created, mounted, beforeDestroy } =
         //     PagesEslintEditorJS;
         // setDeepNodeRandomId(node);
