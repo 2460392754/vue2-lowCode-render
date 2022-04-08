@@ -1,7 +1,9 @@
 <template>
     <div class="PageEslintHomeActivityManageSuspendedBtn">
-        <span>活动管理</span>
-        <van-icon name="like" />
+        <div @click="$emit('click', '活动管理')">
+            <span>活动管理</span>
+            <van-icon name="like" />
+        </div>
     </div>
 </template>
 

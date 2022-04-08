@@ -21,6 +21,7 @@ export function handleRenderEl(node, jsonData, h, isEditor, onChange) {
     let renderList;
 
     // 非编辑环境，不渲染数据（避免数据混乱造成json内容异常）
+    // handleBindValue(node, jsonData);
     !isEditor && handleBindValue(node, jsonData);
 
     // 处理 `jsonData.node` 为数组结构
@@ -158,11 +159,9 @@ function handleBindValue(tempAttr, jsonData) {
                 () => evalRes,
                 (newValRef) => {
                     let newRes = oldVal;
-                    handleParseJsonPathMatch(jsonData, oldVal).forEach(
-                        (item) => {
-                            newRes = getParseRes(item, newRes).res;
-                        }
-                    );
+                    handleParseJsonPathMatch(oldVal).forEach((item) => {
+                        newRes = getParseRes(item, newRes).res;
+                    });
 
                     obj[k] = newRes;
                 },
@@ -179,7 +178,7 @@ function handleBindValue(tempAttr, jsonData) {
         if (hasJsonPathMatch(val) && /{{data./.test(val)) {
             let res = val;
 
-            handleParseJsonPathMatch(jsonData, val).forEach((item) => {
+            handleParseJsonPathMatch(val).forEach((item) => {
                 res = computed(item, k, res, obj, val);
             });
 
@@ -277,16 +276,12 @@ function handleBindEvent(tempAttr, node, jsonData, isEditor, onChange) {
                     }
 
                     let func = eval(
-                        handleParseJsonPathMatch(jsonData, toEventName)[0]
-                            .afterPath
+                        handleParseJsonPathMatch(toEventName)[0].afterPath
                     );
 
                     // 匹配命中，解析规则
                     if (hasJsonPathMatch(func)) {
-                        const mathcRes = handleParseJsonPathMatch(
-                            jsonData,
-                            func
-                        );
+                        const mathcRes = handleParseJsonPathMatch(func);
 
                         mathcRes.forEach((item) => {
                             func = func.replace(
@@ -298,6 +293,8 @@ function handleBindEvent(tempAttr, node, jsonData, isEditor, onChange) {
 
                     // 重新保存引用
                     obj[eventName] = function () {
+                        // console.log(func);
+                        // console.log(arguments);
                         eval(func);
                     };
                 });

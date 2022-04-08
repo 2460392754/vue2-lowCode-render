@@ -1,7 +1,9 @@
 <template>
     <div class="PageEslintHomeActivityPrizesSuspendedBtn">
-        <span>我的奖品</span>
-        <van-icon name="like" />
+        <div @click="$emit('click', '我的奖品')">
+            <span>我的奖品</span>
+            <van-icon name="like" />
+        </div>
     </div>
 </template>
 

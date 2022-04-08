@@ -41,9 +41,9 @@ export function hasJsonPathMatch(matchPath) {
  * @param matchPath
  * @returns
  */
-export function handleParseJsonPathMatch(jsonData, matchPath, isCheck = true) {
+export function handleParseJsonPathMatch(matchPath, isCheck = true) {
     if (isCheck && !hasJsonPathMatch(matchPath)) {
-        throw new TypeError('json解析属性错误');
+        throw new TypeError('json解析属性错误: ' + matchPath);
     }
 
     const matchRes = matchPath.match(/{{[\S\d]+}}/g);
@@ -139,10 +139,10 @@ export function toggleElementClassName(id, className) {
     el.className += ' ' + className;
 }
 
-export function getJSONStrFunc(jsonData, str) {
+export function getJSONStrFunc(str) {
     let resStr = str;
 
-    handleParseJsonPathMatch(jsonData, str, false).forEach((item) => {
+    handleParseJsonPathMatch(str, false).forEach((item) => {
         resStr = resStr.replace(
             new RegExp(item.beforePath, 'g'),
             item.afterPath

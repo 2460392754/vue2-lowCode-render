@@ -12,7 +12,7 @@ export default {
         userInfo: funcToString(() => {
             eval(
                 window.$ref({
-                    name: "",
+                    name: '',
                     mobile: ''
                 })
             );
@@ -37,6 +37,13 @@ export default {
         onNextPage: funcToString(() => {
             '{{data.pageStep}}'.value++;
             console.log('{{data.pageStep}}'.value);
+        }),
+
+        // 显示 toast
+        showToast: funcToString(() => {
+            const res = eval('arguments');
+            console.log(res[0]);
+            window.$toast(res[0] || 'isToast');
         }),
 
         // 设置用户信息

@@ -53,22 +53,20 @@ export default Vue.component('RegisterComponent', {
 
         // 非编辑环境
         if (Vue.prototype.$isH5) {
-            Vue.prototype.store = jsonData;
-
             for (const [key, val] of Object.entries(props.data.methods)) {
-                props.data.methods[key] = getJSONStrFunc(jsonData, val);
+                props.data.methods[key] = getJSONStrFunc(val);
             }
 
             onBeforeMount(() => {
-                eval(getJSONStrFunc(jsonData, props.data.created || ''));
+                eval(getJSONStrFunc(props.data.created || ''));
             });
 
             onMounted(() => {
-                eval(getJSONStrFunc(jsonData, jsonData.mounted));
+                eval(getJSONStrFunc(jsonData.mounted));
             });
 
             onUnmounted(() => {
-                eval(getJSONStrFunc(jsonData, props.data.beforeDestroy || ''));
+                eval(getJSONStrFunc(props.data.beforeDestroy || ''));
             });
         }
 

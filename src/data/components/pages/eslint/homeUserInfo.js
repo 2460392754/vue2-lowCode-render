@@ -29,6 +29,9 @@ export default {
                 style: {
                     color: '#fff',
                     fontSize: '12px'
+                },
+                on: {
+                    click: '{{methods.showToast}}'
                 }
             }
         }),
@@ -44,6 +47,9 @@ export default {
                 style: {
                     color: '#fff',
                     fontSize: '12px'
+                },
+                on: {
+                    click: '{{methods.showToast}}'
                 }
             }
         }),
@@ -57,9 +63,6 @@ export default {
                 style: {
                     color: '#fff',
                     fontSize: '12px'
-                },
-                on: {
-                    click: '{{methods.empty}}'
                 }
             },
             __attribute__: {

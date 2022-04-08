@@ -1,9 +1,8 @@
 <template>
-    <div
-        class="PageEslintHomeBottomBtn editor-pointer-events-none"
-        @click="onClickBtn"
-    >
-        <slot />
+    <div class="PageEslintHomeBottomBtn">
+        <div class="editor-pointer-events-none" @click="onClickBtn">
+            <slot />
+        </div>
     </div>
 </template>
 
@@ -25,7 +24,7 @@ export default {
             // this.store.data.pageStep.value++;
             // or
 
-            console.log(this.onNextPage)
+            console.log(this.onNextPage);
             this.onNextPage();
         }
     }

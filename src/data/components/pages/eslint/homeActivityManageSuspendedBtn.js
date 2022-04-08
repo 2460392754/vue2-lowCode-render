@@ -11,6 +11,9 @@ export default {
             top: '250px',
             left: '0px',
             zIndex: '9999'
+        },
+        on: {
+            click: '{{methods.showToast}}'
         }
     },
     children: [],
