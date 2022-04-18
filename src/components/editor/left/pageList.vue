@@ -6,7 +6,7 @@
 
 <script>
 import Tabs from './tabs.vue';
-import { setDeepNodeRandomId } from '@/utils/nodeTools';
+import { selectJsonData } from '@/utils/selectJsonData';
 
 export default {
     inject: ['store'],
@@ -45,20 +45,7 @@ export default {
         },
 
         _setJsonData() {
-            const { node, data, methods, created, mounted, beforeDestroy } =
-                this.tabList[this.tabActive].data;
-
-            this.store.selectComponentId = null;
-            setDeepNodeRandomId(node);
-
-            Object.assign(this.store, {
-                node,
-                data,
-                methods,
-                created,
-                mounted,
-                beforeDestroy
-            });
+            selectJsonData.call(this, this.tabList[this.tabActive]);
         }
     }
 };

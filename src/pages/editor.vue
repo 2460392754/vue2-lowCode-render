@@ -35,6 +35,10 @@ export default {
             store: {
                 selectComponentId: null,
                 pageName: null,
+                modalList: [],
+                //
+                // ====
+                //
                 node: [],
                 data: {
                     // pageStep: 'eval(window.$ref(0))',

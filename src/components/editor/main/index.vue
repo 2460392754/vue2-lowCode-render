@@ -2,17 +2,20 @@
     <el-main>
         <PageContainer />
         <Menus />
+        <ModalsMenus />
     </el-main>
 </template>
 
 <script>
 import PageContainer from './pageContainer';
 import Menus from './menus.vue';
+import ModalsMenus from './modalsMenus.vue';
 
 export default {
     components: {
         PageContainer,
-        Menus
+        Menus,
+        ModalsMenus
     }
 };
 </script>

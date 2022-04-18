@@ -24,12 +24,20 @@ export default [
         title: '注册页',
         type: 'PageRegister',
         icon: 'el-icon-files',
-        data: merge(PageRegister)
-    },
-    {
-        title: '注册成功',
-        type: 'DialogRegisterDialog',
-        icon: 'el-icon-copy-document',
-        data: merge(DialogRegisterDialog)
+        data: merge(PageRegister),
+        modalList: [
+            {
+                title: '注册成功',
+                type: 'DialogRegisterDialog',
+                icon: 'el-icon-copy-document',
+                data: merge(DialogRegisterDialog)
+            }
+        ]
     }
+    // {
+    //     title: '注册成功',
+    //     type: 'DialogRegisterDialog',
+    //     icon: 'el-icon-copy-document',
+    //     data: merge(DialogRegisterDialog)
+    // }
 ];
